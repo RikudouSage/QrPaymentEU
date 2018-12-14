@@ -1,0 +1,32 @@
+{
+  "name": "rikudou/euqrpayment",
+  "type": "library",
+  "description": "QR payment library for European Union according to EPC standard version 2",
+  "homepage": "https://github.com/RikudouSage/QrPaymentEU",
+  "keywords": [
+    "qr",
+    "payment"
+  ],
+  "license": "WTFPL",
+  "authors": [
+    {
+      "name": "Dominik Chrástecký",
+      "email": "dominik@chrastecky.cz"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "rikudou\\EuQrPayment\\": "src/"
+    }
+  },
+  "suggest": {
+    "endroid/qr-code": "^3.2"
+  },
+  "require-dev": {
+    "phpoffice/phpspreadsheet": "^1.5"
+  }
+}
