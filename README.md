@@ -4,6 +4,8 @@ Library to generate QR payment codes for European Union (EPC standard).
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
+> As this is currently a beta release, the public api is not stable and may change anytime.
+
 ## Installation
 
 Via composer: `composer require rikudou/euqrpayment`
