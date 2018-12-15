@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.com/RikudouSage/QrPaymentEU.svg?branch=master)](https://travis-ci.com/RikudouSage/QrPaymentEU)
 
-Library to generate QR payment codes for European Union (EPC standard).
+Library to generate QR payment codes for European Union (EPC standard). Currently used in
+Germany, Austria, Netherlands and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
