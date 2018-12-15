@@ -86,9 +86,12 @@ that throw exceptions and the reason for that:
 instance of `rikudou\EuQrPayment\Iban\IbanInterface`
 - `setBic()` and `setSwift()` - `InvalidArgumentException` - if the BIC is shorter than 8
 characters or longer than 11 characters
+- `setCharacterSet()` - `InvalidArgumentException` - if the character set is not a valid
+character set
 - `setBeneficiaryName()` - `InvalidArgumentException` - if the beneficiary name is longer
 than 70 characters
-- `setAmount()` - `InvalidArgumentException` - if the amount is lower than zero
+- `setAmount()` - `InvalidArgumentException` - if the amount is lower than zero or more than
+999,999,999.99
 - `setPurpose()` - `InvalidArgumentException` - if the purpose is longer than 4 characters
 - `setRemittanceText()` - `InvalidArgumentException` - if the remittance text is longer
 than 140 characters
@@ -96,8 +99,8 @@ than 140 characters
 than 70 characters
 - `setCurrency()` - `InvalidArgumentException` - if the currency is not exactly 3 characters
 long
-- `getQrString()` - `LogicException` - if the character set is not a valid character set,
-if the beneficiary name is missing or if the resulting string is bigger than 331 bytes
+- `getQrString()` - `LogicException` - if the beneficiary name is missing or if the
+resulting string is bigger than 331 bytes
 - `getQrImage()` - `LogicException` - if the `endroid/qr-code` library is not installed
 
 ## List of public methods

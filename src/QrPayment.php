@@ -98,6 +98,9 @@ final class QrPayment
      */
     public function setCharacterSet(int $characterSet): QrPayment
     {
+        if (!in_array($characterSet, Utils::getConstants(CharacterSet::class))) {
+            throw new \InvalidArgumentException("Invalid character set: {$characterSet}");
+        }
         $this->characterSet = $characterSet;
         return $this;
     }
@@ -178,6 +181,9 @@ final class QrPayment
     {
         if ($amount < 0) {
             throw new \InvalidArgumentException("The amount cannot be less than 0");
+        }
+        if ($amount > 999999999.99) {
+            throw new \InvalidArgumentException("The maximum amount is 999,999,999.99");
         }
         $this->amount = $amount;
         return $this;
@@ -291,7 +297,7 @@ final class QrPayment
         $result[] = $this->getBic();
         $result[] = $this->getBeneficiaryName();
         $result[] = $this->getIban()->getIban();
-        $result[] = $this->getCurrency() . $this->getAmount();
+        $result[] = $this->getAmount() ? $this->getCurrency() . $this->getAmount() : "";
         $result[] = $this->getPurpose();
         $result[] = $this->getRemittanceText();
         $result[] = $this->getInformation();
@@ -337,9 +343,6 @@ final class QrPayment
 
     private function checkRequiredParameters()
     {
-        if (!in_array($this->getCharacterSet(), Utils::getConstants(CharacterSet::class))) {
-            throw new \LogicException("The character must be one of the constants from " . CharacterSet::class . " class");
-        }
         if (!$this->getBeneficiaryName()) {
             throw new \LogicException("The beneficiary name is a mandatory parameter");
         }

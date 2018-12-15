@@ -2,8 +2,12 @@
 
 namespace rikudou\EuQrPayment\Iban;
 
+use rikudou\EuQrPayment\Helper\ToStringIban;
+
 class IBAN implements IbanInterface
 {
+
+    use ToStringIban;
 
     /**
      * @var string

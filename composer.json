@@ -27,6 +27,13 @@
     "endroid/qr-code": "^3.2"
   },
   "require-dev": {
-    "phpoffice/phpspreadsheet": "^1.5"
+    "phpoffice/phpspreadsheet": "^1.5",
+    "phpunit/phpunit": "^7.5",
+    "endroid/qr-code": "^3.2"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "rikudou\\EuQrPayment\\Tests\\": "tests/"
+    }
   }
 }
