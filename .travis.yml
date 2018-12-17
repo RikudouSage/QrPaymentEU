@@ -16,7 +16,7 @@ script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
 
 after_script:
-  - '[[ $PHPUNIT_FLAGS != "" ]] || ./vendor/bin/php-coveralls --verbose'
+  - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
 
 branches:
   only:
