@@ -15,6 +15,16 @@ use rikudou\EuQrPayment\Sepa\Purpose;
 
 class QrPaymentTest extends TestCase
 {
+    /**
+     * @var array
+     */
+    private $autoloaders = null;
+
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $this->autoloaders = spl_autoload_functions();
+    }
 
     public function testInvalidConstructorInt()
     {
@@ -257,6 +267,34 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setCurrency("EURO");
     }
 
+    public function testGetQrImageFailure()
+    {
+        $this->expectException(\LogicException::class);
+        $payment = $this->getDefaultPayment();
+
+        $this->unregisterAutoloader();
+        try {
+            $payment
+                ->setBeneficiaryName("My company")
+                ->getQrImage();
+        } catch (\Throwable $exception) {
+            $this->reregisterAutoloader();
+            throw $exception;
+        }
+
+    }
+
+
+    public function testGetQrImage()
+    {
+        $this->reregisterAutoloader();
+
+        $payment = $this->getDefaultPayment();
+        $payment->setBeneficiaryName("My company");
+
+        $this->assertEquals($payment->getQrString(), $payment->getQrImage()->getText());
+    }
+
     private function getDefaultPayment(): QrPayment
     {
         return new QrPayment("CZ5530300000001325090010");
@@ -276,4 +314,19 @@ class QrPaymentTest extends TestCase
 
         return $result;
     }
+
+    private function unregisterAutoloader()
+    {
+        foreach ($this->autoloaders as $autoloader) {
+            spl_autoload_unregister($autoloader);
+        }
+    }
+
+    private function reregisterAutoloader()
+    {
+        foreach ($this->autoloaders as $autoloader) {
+            spl_autoload_register($autoloader);
+        }
+    }
+
 }
