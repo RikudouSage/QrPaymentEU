@@ -16,55 +16,10 @@ use rikudou\EuQrPayment\Sepa\Purpose;
 class QrPaymentTest extends TestCase
 {
 
-    public function testSetSwift()
+    public function testInvalidConstructorInt()
     {
-        $shortSwifts = [
-            "A",
-            "AB",
-            "ABC",
-            "ABCD",
-            "ABCDE",
-            "ABCDEF",
-            "ABCDEFG"
-        ];
-
-        $validLengthSwifts = [
-            "ABCDEFGH",
-            "ABCDEFGHI",
-            "ABCDEFGHIJ",
-            "ABCDEFGHIJK",
-        ];
-
-        $tooLongSwifts = [
-            "ABCDEFGHIJKL",
-            "ABCDEFGHIJKLM",
-            "ABCDEFGHIJKLMN",
-            "ABCDEFGHIJKLMNO"
-        ];
-
-        foreach ($shortSwifts as $shortSwift) {
-            try {
-                $this->getDefaultPayment()->setSwift($shortSwift);
-                $this->fail("Expected " . \InvalidArgumentException::class . " for swift {$shortSwift}");
-            } catch (\InvalidArgumentException $e) {
-                // do nothing
-            }
-        }
-
-        foreach ($validLengthSwifts as $validLengthSwift) {
-            $this->getDefaultPayment()->setSwift($validLengthSwift);
-        }
-
-        foreach ($tooLongSwifts as $tooLongSwift) {
-            try {
-                $this->getDefaultPayment()->setSwift($tooLongSwift);
-                $this->fail("Expected " . \InvalidArgumentException::class . " for swift {$tooLongSwift}");
-            } catch (\InvalidArgumentException $e) {
-                // do nothing
-            }
-        }
-
-        $this->assertTrue(true); // dumb assertion for PHPUnit to stop complaining about no assertions
+        $this->expectException(\InvalidArgumentException::class);
+        new QrPayment(123456);
     }
 
     public function testSetBeneficiaryName()
@@ -168,6 +123,19 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setInformation($strings[2]);
     }
 
+    public function testSetComment()
+    {
+        $payment = $this->getDefaultPayment();
+        $randomString = $this->getRandomString(10);
+        $payment->setInformation($randomString);
+        $this->assertEquals($payment->getInformation(), $payment->getComment());
+
+        $payment = $this->getDefaultPayment();
+        $randomString = $this->getRandomString(10);
+        $payment->setComment($randomString);
+        $this->assertEquals($payment->getComment(), $payment->getInformation());
+    }
+
     public function testSetRemittanceText()
     {
         $strings = [
@@ -246,6 +214,20 @@ class QrPaymentTest extends TestCase
         $this->assertTrue(true); // dumb assertion for PHPUnit to stop complaining about no assertions
     }
 
+    public function testSetSwift()
+    {
+        $payment = $this->getDefaultPayment();
+        $randomString = $this->getRandomString(10);
+        $payment->setSwift($randomString);
+        $this->assertEquals($payment->getSwift(), $payment->getBic());
+
+        $payment = $this->getDefaultPayment();
+        $randomString = $this->getRandomString(10);
+        $payment->setBic($randomString);
+        $this->assertEquals($payment->getBic(), $payment->getSwift());
+
+    }
+
     public function testSetCharacterSet()
     {
         $validSet = (new \ReflectionClass(CharacterSet::class))->getConstants();
@@ -264,21 +246,6 @@ class QrPaymentTest extends TestCase
         }
 
         $this->assertTrue(true);
-    }
-
-    public function testSetComment()
-    {
-        $strings = [
-            $this->getRandomString(10),
-            $this->getRandomString(70),
-            $this->getRandomString(71)
-        ];
-
-        $this->assertEquals($strings[0], $this->getDefaultPayment()->setComment($strings[0])->getComment());
-        $this->assertEquals($strings[1], $this->getDefaultPayment()->setComment($strings[1])->getComment());
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->getDefaultPayment()->setComment($strings[2]);
     }
 
     public function testSetCurrency()
