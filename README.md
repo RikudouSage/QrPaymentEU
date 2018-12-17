@@ -50,9 +50,9 @@ This package contains one such class for Czech accounts:
 <?php
 
 use rikudou\EuQrPayment\QrPayment;
-use rikudou\EuQrPayment\Iban\CzechIban;
+use rikudou\EuQrPayment\Iban\CzechIbanAdapter;
 
-$payment = new QrPayment(new CzechIban(1325090010, 3030));
+$payment = new QrPayment(new CzechIbanAdapter(1325090010, 3030));
 
 ```
 

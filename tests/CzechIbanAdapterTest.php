@@ -3,20 +3,20 @@
 namespace rikudou\EuQrPayment\Tests;
 
 use PHPUnit\Framework\TestCase;
-use rikudou\EuQrPayment\Iban\CzechIban;
+use rikudou\EuQrPayment\Iban\CzechIbanAdapter;
 
-class CzechIbanTest extends TestCase
+class CzechIbanAdapterTest extends TestCase
 {
 
     public function testGetIban()
     {
-        $iban = new CzechIban($this->getAccountNumber(), $this->getBankCode());
+        $iban = new CzechIbanAdapter($this->getAccountNumber(), $this->getBankCode());
         $this->assertEquals($this->getIban(), $iban->getIban());
     }
 
     public function testToString()
     {
-        $iban = new CzechIban($this->getAccountNumber(), $this->getBankCode());
+        $iban = new CzechIbanAdapter($this->getAccountNumber(), $this->getBankCode());
         $this->assertEquals($this->getIban(), strval($iban));
     }
 
