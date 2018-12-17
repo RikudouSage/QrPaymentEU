@@ -6,7 +6,7 @@ php:
   - nightly
 install: 'composer install'
 after_script:
-  - ./vendor/bin/php-coveralls --verbose
+  - '[ -f "./tmp/skip_coverage" ] || ./vendor/bin/php-coveralls --verbose ; touch ./tmp/skip_coverage'
 branches:
   only:
     - master
