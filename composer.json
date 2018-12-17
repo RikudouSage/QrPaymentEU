@@ -29,7 +29,8 @@
   "require-dev": {
     "phpoffice/phpspreadsheet": "^1.5",
     "phpunit/phpunit": "^7.5",
-    "endroid/qr-code": "^3.2"
+    "endroid/qr-code": "^3.2",
+    "satooshi/php-coveralls": "^2.0"
   },
   "autoload-dev": {
     "psr-4": {

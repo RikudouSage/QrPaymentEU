@@ -5,6 +5,8 @@ php:
   - '7.3'
   - nightly
 install: 'composer install'
+after_script:
+  - ./vendor/bin/php-coveralls --verbose
 branches:
   only:
     - master
