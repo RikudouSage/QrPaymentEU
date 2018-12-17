@@ -1,10 +1,23 @@
 language: php
+
+matrix:
+  include:
+    - php: 7.2
+      env: PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+
 php:
   - '7.1'
-  - '7.2'
   - '7.3'
   - nightly
+
 install: 'composer install'
+
+script:
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+
+after_script:
+  - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
+
 branches:
   only:
     - master
