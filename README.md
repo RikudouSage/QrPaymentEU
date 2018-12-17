@@ -618,7 +618,7 @@ $payment
     ->setCurrency("EUR");
 
 header("Content-Type: image/png");
-echo $payment->getQrString()->writeString();
+echo $payment->getQrImage()->writeString();
 
 ```
 
