@@ -4,7 +4,7 @@ namespace rikudou\EuQrPayment\Iban;
 
 use rikudou\EuQrPayment\Helper\ToStringIban;
 
-class CzechIban implements IbanInterface
+class CzechIbanAdapter implements IbanInterface
 {
 
     use ToStringIban;
