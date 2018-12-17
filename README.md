@@ -8,6 +8,8 @@ Germany, Austria, Netherlands and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
+> Using Symfony? See the [QR Payment Bundle](https://github.com/RikudouSage/QrPaymentBundle).
+
 > As this is currently a beta release, the public api is not stable and may change anytime.
 
 ## Installation
