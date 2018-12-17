@@ -1,12 +1,24 @@
 language: php
+
 php:
   - '7.1'
   - '7.2'
   - '7.3'
   - nightly
+
+matrix:
+  include:
+    - php: 7.2
+      env: PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+
 install: 'composer install'
+
+script:
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+
 after_script:
-  - '[ -f "./tmp/skip_coverage" ] || ./vendor/bin/php-coveralls --verbose ; touch ./tmp/skip_coverage'
+  - '[[ $PHPUNIT_FLAGS != "" ]] || ./vendor/bin/php-coveralls --verbose'
+
 branches:
   only:
     - master
