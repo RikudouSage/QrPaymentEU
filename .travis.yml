@@ -1,14 +1,14 @@
 language: php
 
-php:
-  - '7.1'
-  - '7.3'
-  - nightly
-
 matrix:
   include:
     - php: 7.2
       env: PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+
+php:
+  - '7.1'
+  - '7.3'
+  - nightly
 
 install: 'composer install'
 
