@@ -26,6 +26,11 @@ class IBANTest extends TestCase
         $this->assertEquals($this->getIbanString(), strval($iban));
     }
 
+    public function testGetValidator()
+    {
+        $this->assertEquals(true, (new IBAN($this->getIbanString()))->getValidator()->isValid());
+    }
+
     private function getIbanString(): string
     {
         return "CZ5530300000001325090010";
