@@ -310,7 +310,7 @@ final class QrPayment
         $result = [];
         if ($validator = $this->getIban()->getValidator()) {
             if (!$validator->isValid()) {
-                throw new InvalidIbanException("The IBAN is not valid");
+                throw new InvalidIbanException('The IBAN is not valid');
             }
         }
 
