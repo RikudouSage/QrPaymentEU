@@ -20,7 +20,7 @@ install: composer install $COMPOSER_FLAGS
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
-  - '[[ $USE_FIXER = "1" ]] && vendor/bin/php-cs-fixer fix src/ --dry-run --verbose'
+  - '[[ $USE_FIXER != "1" ]] || vendor/bin/php-cs-fixer fix src/ --dry-run --verbose'
 
 after_script:
   - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
