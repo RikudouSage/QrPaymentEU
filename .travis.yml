@@ -14,6 +14,7 @@ install: 'composer install'
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
+  - vendor/bin/php-cs-fixer fix src/ --dry-run --verbose
 
 after_script:
   - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
