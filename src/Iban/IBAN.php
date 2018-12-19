@@ -8,7 +8,6 @@ use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class IBAN implements IbanInterface
 {
-
     use ToStringIban;
 
     /**
@@ -22,7 +21,7 @@ class IBAN implements IbanInterface
     }
 
     /**
-     * Returns the resulting IBAN
+     * Returns the resulting IBAN.
      *
      * @return string
      */
@@ -32,7 +31,7 @@ class IBAN implements IbanInterface
     }
 
     /**
-     * Returns the validator that checks whether the IBAN is valid
+     * Returns the validator that checks whether the IBAN is valid.
      *
      * @return ValidatorInterface|null
      */

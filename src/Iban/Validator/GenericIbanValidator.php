@@ -7,11 +7,6 @@ use rikudou\EuQrPayment\Iban\IbanInterface;
 
 class GenericIbanValidator implements ValidatorInterface
 {
-
-    private const IBAN_LENGTHS = [
-
-    ];
-
     /**
      * @var IbanInterface
      */
@@ -42,7 +37,7 @@ class GenericIbanValidator implements ValidatorInterface
 
     private function getNumericRepresentation(string $string)
     {
-        $result = "";
+        $result = '';
         $length = strlen($string);
         for ($i = 0; $i < $length; $i++) {
             $char = $string[$i];

@@ -4,12 +4,10 @@ namespace rikudou\EuQrPayment\Iban;
 
 use rikudou\EuQrPayment\Helper\ToStringIban;
 use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
-use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class CzechIbanAdapter implements IbanInterface
 {
-
     use ToStringIban;
 
     /**
@@ -29,13 +27,12 @@ class CzechIbanAdapter implements IbanInterface
 
     public function __construct(string $accountNumber, string $bankCode)
     {
-
         $this->accountNumber = $accountNumber;
         $this->bankCode = $bankCode;
     }
 
     /**
-     * Returns the resulting IBAN
+     * Returns the resulting IBAN.
      *
      * @return string
      */
@@ -55,18 +52,19 @@ class CzechIbanAdapter implements IbanInterface
 
             $numeric = sprintf('%04d%06d%010d%d%d00', $this->bankCode, $accountPrefix, $accountNumber, $part1, $part2);
 
-            $mod = "";
+            $mod = '';
             foreach (str_split($numeric) as $n) {
                 $mod = ($mod . $n) % 97;
             }
 
-            $this->iban = sprintf("%.2s%02d%04d%06d%010d", "CZ", 98 - $mod, $this->bankCode, $accountPrefix, $accountNumber);
+            $this->iban = sprintf('%.2s%02d%04d%06d%010d', 'CZ', 98 - $mod, $this->bankCode, $accountPrefix, $accountNumber);
         }
+
         return $this->iban;
     }
 
     /**
-     * Returns the validator that checks whether the IBAN is valid
+     * Returns the validator that checks whether the IBAN is valid.
      *
      * @return ValidatorInterface|null
      */

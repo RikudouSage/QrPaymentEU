@@ -1,0 +1,13 @@
+<?php
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'yoda_style' => false,
+        'ordered_imports' => ['sort_algorithm' => 'alpha'],
+        'no_short_bool_cast' => false,
+        'no_break_comment' => ['comment_text' => 'intentional fallthrough'],
+        'concat_space' => false,
+        'increment_style' => false,
+    ]);
