@@ -2,19 +2,21 @@ language: php
 
 matrix:
   include:
+    - php: 7.1
+      env:
+        - USE_FIXER="1"
     - php: 7.2
       env:
         - PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
         - USE_FIXER="1"
-    - php: 7.1
+    - php: 7.3
       env:
-        - USE_FIXER="1"
+        - COMPOSER_FLAGS="--ignore-platform-reqs"
+    - php: nightly
+      env:
+        - COMPOSER_FLAGS="--ignore-platform-reqs"
 
-php:
-  - '7.3'
-  - nightly
-
-install: 'composer install'
+install: composer install $COMPOSER_FLAGS
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
