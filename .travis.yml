@@ -3,18 +3,22 @@ language: php
 matrix:
   include:
     - php: 7.2
-      env: PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+      env:
+        - PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+        - USE_FIXER="1"
+    - php: 7.1
+      env:
+        - USE_FIXER="1"
 
 php:
-  - '7.1'
   - '7.3'
   - nightly
 
-install: 'composer install --ignore-platform-reqs'
+install: 'composer install'
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
-  - vendor/bin/php-cs-fixer fix src/ --dry-run --verbose
+  - '[[ $USE_FIXER = "1" ]] && vendor/bin/php-cs-fixer fix src/ --dry-run --verbose'
 
 after_script:
   - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
