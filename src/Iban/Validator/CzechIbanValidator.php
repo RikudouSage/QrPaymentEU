@@ -4,7 +4,6 @@ namespace rikudou\EuQrPayment\Iban\Validator;
 
 class CzechIbanValidator implements ValidatorInterface
 {
-
     // Modifiers according to Czech National Bank
     private const MODIFIERS = [
         6,
@@ -16,9 +15,8 @@ class CzechIbanValidator implements ValidatorInterface
         8,
         4,
         2,
-        1
+        1,
     ];
-
 
     /**
      * @var string
@@ -45,7 +43,7 @@ class CzechIbanValidator implements ValidatorInterface
         // prefix uses only the last six modifiers
         $prefixModifiers = array_slice(static::MODIFIERS, -6);
 
-        $prefix = sprintf("%06d", $matches[1] ?? "");
+        $prefix = sprintf('%06d', $matches[1] ?? '');
         // the number could be too large on 32 bits, cannot use sprintf here
         $account = str_repeat('0', 10 - strlen($matches[2])) . $matches[2];
 

@@ -7,11 +7,6 @@ use rikudou\EuQrPayment\Iban\IbanInterface;
 
 class GenericIbanValidator implements ValidatorInterface
 {
-
-    private const IBAN_LENGTHS = [
-
-    ];
-
     /**
      * @var IbanInterface
      */
@@ -33,16 +28,17 @@ class GenericIbanValidator implements ValidatorInterface
         $numericAccount = $this->getNumericRepresentation($account);
 
         $inverted = $numericAccount . $numericCountry . $checksum;
+
         return Utils::bcmod($inverted, 97) === '1';
     }
 
     private function getNumericRepresentation(string $string)
     {
-        $result = "";
+        $result = '';
         $length = strlen($string);
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $char = $string[$i];
-            if(!is_numeric($char)) {
+            if (!is_numeric($char)) {
                 $result .= ord($char) - ord('A') + 10;
             } else {
                 $result .= $char;
