@@ -33,7 +33,11 @@ class GenericIbanValidator implements ValidatorInterface
         $numericAccount = $this->getNumericRepresentation($account);
 
         $inverted = $numericAccount . $numericCountry . $checksum;
-        return Utils::bcmod($inverted, 97) === '1';
+        try {
+            return Utils::bcmod($inverted, 97) === '1';
+        } catch (\InvalidArgumentException $exception) {
+            return false;
+        }
     }
 
     private function getNumericRepresentation(string $string)
@@ -42,7 +46,7 @@ class GenericIbanValidator implements ValidatorInterface
         $length = strlen($string);
         for ($i = 0; $i < $length; $i++) {
             $char = $string[$i];
-            if(!is_numeric($char)) {
+            if (!is_numeric($char)) {
                 $result .= ord($char) - ord('A') + 10;
             } else {
                 $result .= $char;
