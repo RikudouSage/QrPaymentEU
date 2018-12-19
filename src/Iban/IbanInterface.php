@@ -2,16 +2,24 @@
 
 namespace rikudou\EuQrPayment\Iban;
 
+use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
+
 interface IbanInterface
 {
 
     /**
      * Returns the resulting IBAN
      *
-     * @throws \Exception if the iban is not valid
      * @return string
      */
     public function getIban(): string;
+
+    /**
+     * Returns the validator that checks whether the IBAN is valid
+     *
+     * @return ValidatorInterface|null
+     */
+    public function getValidator(): ?ValidatorInterface;
 
     /**
      * Returns the resulting IBAN, returns empty string if the IBAN is not valid

@@ -62,6 +62,11 @@ class CzechIbanAdapterTest extends TestCase
         }
     }
 
+    public function testGetValidator()
+    {
+        $this->assertEquals(true, $this->getIban(1325090010, 3030)->getValidator()->isValid());
+    }
+
     /**
      * @param string|int $account
      * @param string|int $bankCode

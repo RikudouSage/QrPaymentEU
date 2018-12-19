@@ -3,6 +3,8 @@
 namespace rikudou\EuQrPayment\Iban;
 
 use rikudou\EuQrPayment\Helper\ToStringIban;
+use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
+use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class IBAN implements IbanInterface
 {
@@ -27,5 +29,15 @@ class IBAN implements IbanInterface
     public function getIban(): string
     {
         return $this->iban;
+    }
+
+    /**
+     * Returns the validator that checks whether the IBAN is valid
+     *
+     * @return ValidatorInterface|null
+     */
+    public function getValidator(): ?ValidatorInterface
+    {
+        return new GenericIbanValidator($this);
     }
 }
