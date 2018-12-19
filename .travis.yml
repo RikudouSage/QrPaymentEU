@@ -10,7 +10,7 @@ php:
   - '7.3'
   - nightly
 
-install: 'composer install'
+install: 'composer install --ignore-platform-reqs'
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
