@@ -3,6 +3,7 @@
 namespace rikudou\EuQrPayment;
 
 use Endroid\QrCode\QrCode;
+use rikudou\EuQrPayment\Exceptions\InvalidIbanException;
 use rikudou\EuQrPayment\Helper\Utils;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Iban\IbanInterface;
@@ -307,6 +308,11 @@ final class QrPayment
         $this->checkRequiredParameters();
 
         $result = [];
+        if ($validator = $this->getIban()->getValidator()) {
+            if (!$validator->isValid()) {
+                throw new InvalidIbanException("The IBAN is not valid");
+            }
+        }
 
         $result[] = 'BCD'; // the service tag
         $result[] = '002'; // version

@@ -9,6 +9,11 @@
 namespace rikudou\EuQrPayment\Tests;
 
 use PHPUnit\Framework\TestCase;
+use rikudou\EuQrPayment\Exceptions\InvalidIbanException;
+use rikudou\EuQrPayment\Helper\ToStringIban;
+use rikudou\EuQrPayment\Iban\IBAN;
+use rikudou\EuQrPayment\Iban\IbanInterface;
+use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 use rikudou\EuQrPayment\QrPayment;
 use rikudou\EuQrPayment\Sepa\CharacterSet;
 use rikudou\EuQrPayment\Sepa\Purpose;
@@ -103,6 +108,44 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setBeneficiaryName($this->getRandomString(1))->setCharacterSet($randomInt)->getQrString();
     }
 
+    public function testGetQrStringInvalidIban()
+    {
+        $this->expectException(InvalidIbanException::class);
+        (new QrPayment(new IBAN("")))
+            ->setBeneficiaryName("random name")
+            ->getQrString();
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testGetQrStringNoValidator()
+    {
+        $payment = new QrPayment(new class implements IbanInterface
+        {
+
+            use ToStringIban;
+
+            public function getIban(): string
+            {
+                return "123";
+            }
+
+            public function getValidator(): ?ValidatorInterface
+            {
+                return null;
+            }
+
+        });
+
+        $payment->setBeneficiaryName("random");
+        try {
+            $payment->getQrString();
+        } catch (\Throwable $exception) {
+            $this->fail("Without validator the getQrString() should not throw exception on invalid IBAN");
+        }
+    }
+
     public function testGetQrStringTooLong()
     {
         $this->expectException(\LogicException::class);
@@ -173,6 +216,9 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setAmount(1000000000);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testSetBic()
     {
         $shortBics = [
@@ -221,7 +267,6 @@ class QrPaymentTest extends TestCase
             }
         }
 
-        $this->assertTrue(true); // dumb assertion for PHPUnit to stop complaining about no assertions
     }
 
     public function testSetSwift()
@@ -238,6 +283,9 @@ class QrPaymentTest extends TestCase
 
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testSetCharacterSet()
     {
         $validSet = (new \ReflectionClass(CharacterSet::class))->getConstants();
@@ -255,7 +303,6 @@ class QrPaymentTest extends TestCase
             }
         }
 
-        $this->assertTrue(true);
     }
 
     public function testSetCurrency()
