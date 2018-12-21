@@ -11,7 +11,7 @@ interface IbanInterface
      *
      * @return string
      */
-    public function getIban(): string;
+    public function asString(): string;
 
     /**
      * Returns the validator that checks whether the IBAN is valid.

@@ -129,7 +129,8 @@ $payment = new QrPayment("CZ5530300000001325090010");
 ### getIban()
 
 Returns instance of `IbanInterface`, you can get the string
-representation of IBAN via method `getIban()` of `IbanInterface`.
+representation of IBAN via method `asString()` of `IbanInterface` or by casting
+the object to string.
 
 **Returns**
 
@@ -144,7 +145,8 @@ use rikudou\EuQrPayment\QrPayment;
 
 $payment = new QrPayment("CZ5530300000001325090010");
 $iban = $payment->getIban(); // holds instance of rikudou\EuQrPayment\Iban\IBAN
-$ibanAsString = $payment->getIban()->getIban();
+$ibanAsString = $payment->getIban()->asString();
+$ibanAsString = (string) $payment->getIban();
 
 ```
 

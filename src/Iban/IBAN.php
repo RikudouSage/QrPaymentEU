@@ -25,7 +25,7 @@ class IBAN implements IbanInterface
      *
      * @return string
      */
-    public function getIban(): string
+    public function asString(): string
     {
         return $this->iban;
     }

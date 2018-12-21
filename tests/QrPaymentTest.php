@@ -126,7 +126,7 @@ class QrPaymentTest extends TestCase
 
             use ToStringIban;
 
-            public function getIban(): string
+            public function asString(): string
             {
                 return "123";
             }

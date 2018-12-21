@@ -320,7 +320,7 @@ final class QrPayment
         $result[] = 'SCT'; // identification
         $result[] = $this->getBic();
         $result[] = $this->getBeneficiaryName();
-        $result[] = $this->getIban()->getIban();
+        $result[] = $this->getIban()->asString();
         $result[] = $this->getAmount() ? $this->getCurrency() . $this->getAmount() : '';
         $result[] = $this->getPurpose();
         $result[] = $this->getRemittanceText();
