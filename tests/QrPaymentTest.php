@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: root
  * Date: 15.12.18
- * Time: 1:11
+ * Time: 1:11.
  */
 
 namespace rikudou\EuQrPayment\Tests;
@@ -42,7 +42,7 @@ class QrPaymentTest extends TestCase
         $beneficiaries = [
             $this->getRandomString(10),
             $this->getRandomString(70),
-            $this->getRandomString(71)
+            $this->getRandomString(71),
         ];
 
         $this->assertEquals($beneficiaries[0], $this->getDefaultPayment()->setBeneficiaryName($beneficiaries[0])->getBeneficiaryName());
@@ -56,10 +56,10 @@ class QrPaymentTest extends TestCase
     {
         $purposes = [
             Purpose::TRUST_FUND, // valid purpose constant
-            "ABCD", // can be 0 - 4 characters long
-            "ABC",
-            "AB",
-            "A",
+            'ABCD', // can be 0 - 4 characters long
+            'ABC',
+            'AB',
+            'A',
         ];
 
         foreach ($purposes as $purpose) {
@@ -67,7 +67,7 @@ class QrPaymentTest extends TestCase
         }
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->getDefaultPayment()->setPurpose("ABCDE"); // 5 characters long
+        $this->getDefaultPayment()->setPurpose('ABCDE'); // 5 characters long
     }
 
     public function testGetQrString()
@@ -75,19 +75,19 @@ class QrPaymentTest extends TestCase
         $payment = $this->getDefaultPayment();
         $payment
             ->setPurpose(Purpose::ACCOUNT_MANAGEMENT)
-            ->setBeneficiaryName("My Company")
-            ->setSwift("AIRACZPP")
+            ->setBeneficiaryName('My Company')
+            ->setSwift('AIRACZPP')
             ->setAmount(10)
-            ->setCurrency("EUR")
-            ->setComment("Random comment")
-            ->setRemittanceText("Invoice ID: 1")
+            ->setCurrency('EUR')
+            ->setComment('Random comment')
+            ->setRemittanceText('Invoice ID: 1')
             ->setCharacterSet(CharacterSet::UTF_8);
 
         $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\nInvoice ID: 1\nRandom comment", $payment->getQrString());
 
         $payment = $this->getDefaultPayment();
         $payment// no unnecessary parameters
-        ->setBeneficiaryName("My Company");
+        ->setBeneficiaryName('My Company');
 
         $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\n\n", $payment->getQrString());
     }
@@ -111,8 +111,8 @@ class QrPaymentTest extends TestCase
     public function testGetQrStringInvalidIban()
     {
         $this->expectException(InvalidIbanException::class);
-        (new QrPayment(new IBAN("")))
-            ->setBeneficiaryName("random name")
+        (new QrPayment(new IBAN('')))
+            ->setBeneficiaryName('random name')
             ->getQrString();
     }
 
@@ -121,28 +121,25 @@ class QrPaymentTest extends TestCase
      */
     public function testGetQrStringNoValidator()
     {
-        $payment = new QrPayment(new class implements IbanInterface
-        {
-
+        $payment = new QrPayment(new class() implements IbanInterface {
             use ToStringIban;
 
             public function asString(): string
             {
-                return "123";
+                return '123';
             }
 
             public function getValidator(): ?ValidatorInterface
             {
                 return null;
             }
-
         });
 
-        $payment->setBeneficiaryName("random");
+        $payment->setBeneficiaryName('random');
         try {
             $payment->getQrString();
         } catch (\Throwable $exception) {
-            $this->fail("Without validator the getQrString() should not throw exception on invalid IBAN");
+            $this->fail('Without validator the getQrString() should not throw exception on invalid IBAN');
         }
     }
 
@@ -166,7 +163,7 @@ class QrPaymentTest extends TestCase
         $strings = [
             $this->getRandomString(10),
             $this->getRandomString(70),
-            $this->getRandomString(71)
+            $this->getRandomString(71),
         ];
 
         $this->assertEquals($strings[0], $this->getDefaultPayment()->setInformation($strings[0])->getInformation());
@@ -194,7 +191,7 @@ class QrPaymentTest extends TestCase
         $strings = [
             $this->getRandomString(10),
             $this->getRandomString(140),
-            $this->getRandomString(141)
+            $this->getRandomString(141),
         ];
 
         $this->assertEquals($strings[0], $this->getDefaultPayment()->setRemittanceText($strings[0])->getRemittanceText());
@@ -222,33 +219,33 @@ class QrPaymentTest extends TestCase
     public function testSetBic()
     {
         $shortBics = [
-            "A",
-            "AB",
-            "ABC",
-            "ABCD",
-            "ABCDE",
-            "ABCDEF",
-            "ABCDEFG"
+            'A',
+            'AB',
+            'ABC',
+            'ABCD',
+            'ABCDE',
+            'ABCDEF',
+            'ABCDEFG',
         ];
 
         $validLengthBics = [
-            "ABCDEFGH",
-            "ABCDEFGHI",
-            "ABCDEFGHIJ",
-            "ABCDEFGHIJK",
+            'ABCDEFGH',
+            'ABCDEFGHI',
+            'ABCDEFGHIJ',
+            'ABCDEFGHIJK',
         ];
 
         $tooLongBics = [
-            "ABCDEFGHIJKL",
-            "ABCDEFGHIJKLM",
-            "ABCDEFGHIJKLMN",
-            "ABCDEFGHIJKLMNO"
+            'ABCDEFGHIJKL',
+            'ABCDEFGHIJKLM',
+            'ABCDEFGHIJKLMN',
+            'ABCDEFGHIJKLMNO',
         ];
 
         foreach ($shortBics as $shortBic) {
             try {
                 $this->getDefaultPayment()->setSwift($shortBic);
-                $this->fail("Expected " . \InvalidArgumentException::class . " for swift {$shortBic}");
+                $this->fail('Expected ' . \InvalidArgumentException::class . " for swift {$shortBic}");
             } catch (\InvalidArgumentException $e) {
                 // do nothing
             }
@@ -261,12 +258,11 @@ class QrPaymentTest extends TestCase
         foreach ($tooLongBics as $tooLongBic) {
             try {
                 $this->getDefaultPayment()->setSwift($tooLongBic);
-                $this->fail("Expected " . \InvalidArgumentException::class . " for swift {$tooLongBic}");
+                $this->fail('Expected ' . \InvalidArgumentException::class . " for swift {$tooLongBic}");
             } catch (\InvalidArgumentException $e) {
                 // do nothing
             }
         }
-
     }
 
     public function testSetSwift()
@@ -280,7 +276,6 @@ class QrPaymentTest extends TestCase
         $randomString = $this->getRandomString(10);
         $payment->setBic($randomString);
         $this->assertEquals($payment->getBic(), $payment->getSwift());
-
     }
 
     /**
@@ -294,24 +289,23 @@ class QrPaymentTest extends TestCase
             try {
                 $this->getDefaultPayment()->setCharacterSet($i);
                 if (!in_array($i, $validSet)) {
-                    $this->fail("Expected exception " . \InvalidArgumentException::class . " for character set {$i}");
+                    $this->fail('Expected exception ' . \InvalidArgumentException::class . " for character set {$i}");
                 }
             } catch (\InvalidArgumentException $exception) {
                 if (in_array($i, $validSet)) {
-                    $this->fail("Did not expect exception " . get_class($exception) . " for character set {$i}");
+                    $this->fail('Did not expect exception ' . get_class($exception) . " for character set {$i}");
                 }
             }
         }
-
     }
 
     public function testSetCurrency()
     {
-        $this->assertEquals("EUR", $this->getDefaultPayment()->getCurrency());
-        $this->assertEquals("CZK", $this->getDefaultPayment()->setCurrency("CZK")->getCurrency());
+        $this->assertEquals('EUR', $this->getDefaultPayment()->getCurrency());
+        $this->assertEquals('CZK', $this->getDefaultPayment()->setCurrency('CZK')->getCurrency());
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->getDefaultPayment()->setCurrency("EURO");
+        $this->getDefaultPayment()->setCurrency('EURO');
     }
 
     public function testGetQrImageFailure()
@@ -322,35 +316,33 @@ class QrPaymentTest extends TestCase
         $this->unregisterAutoloader();
         try {
             $payment
-                ->setBeneficiaryName("My company")
+                ->setBeneficiaryName('My company')
                 ->getQrImage();
         } catch (\Throwable $exception) {
             $this->reregisterAutoloader();
             throw $exception;
         }
-
     }
-
 
     public function testGetQrImage()
     {
         $this->reregisterAutoloader();
 
         $payment = $this->getDefaultPayment();
-        $payment->setBeneficiaryName("My company");
+        $payment->setBeneficiaryName('My company');
 
         $this->assertEquals($payment->getQrString(), $payment->getQrImage()->getText());
     }
 
     private function getDefaultPayment(): QrPayment
     {
-        return new QrPayment("CZ5530300000001325090010");
+        return new QrPayment('CZ5530300000001325090010');
     }
 
     private function getRandomString(int $length): string
     {
-        $result = "";
-        $chars = range("A", "Z");
+        $result = '';
+        $chars = range('A', 'Z');
         for ($i = 0; $i < $length; $i++) {
             try {
                 $result .= $chars[random_int(0, count($chars) - 1)];
@@ -375,5 +367,4 @@ class QrPaymentTest extends TestCase
             spl_autoload_register($autoloader);
         }
     }
-
 }
