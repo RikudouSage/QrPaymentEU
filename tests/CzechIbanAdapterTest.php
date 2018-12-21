@@ -35,7 +35,7 @@ class CzechIbanAdapterTest extends TestCase
 
         foreach ($accounts as $iban => $accountData) {
             $iban = str_replace(" ", "", $iban);
-            $this->assertEquals($iban, $this->getIban($accountData["acc"], $accountData["bank"])->getIban());
+            $this->assertEquals($iban, $this->getIban($accountData["acc"], $accountData["bank"])->asString());
             $this->assertEquals($iban, strval($this->getIban($accountData["acc"], $accountData["bank"])));
         }
     }
@@ -57,7 +57,7 @@ class CzechIbanAdapterTest extends TestCase
 
         foreach ($accounts as $iban => $accountData) {
             $iban = str_replace(" ", "", $iban);
-            $this->assertEquals($iban, $this->getIban($accountData["acc"], $accountData["bank"], $accountData["prefix"])->getIban());
+            $this->assertEquals($iban, $this->getIban($accountData["acc"], $accountData["bank"], $accountData["prefix"])->asString());
             $this->assertEquals($iban, strval($this->getIban($accountData["acc"], $accountData["bank"], $accountData["prefix"])));
         }
     }

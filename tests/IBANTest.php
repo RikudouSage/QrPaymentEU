@@ -17,7 +17,7 @@ class IBANTest extends TestCase
     public function testGetIban()
     {
         $iban = new IBAN($this->getIbanString());
-        $this->assertEquals($this->getIbanString(), $iban->getIban());
+        $this->assertEquals($this->getIbanString(), $iban->asString());
     }
 
     public function testToString()

@@ -19,7 +19,7 @@ class GenericIbanValidator implements ValidatorInterface
 
     public function isValid(): bool
     {
-        $stringIban = strtoupper($this->iban->getIban());
+        $stringIban = strtoupper($this->iban->asString());
 
         $country = substr($stringIban, 0, 2);
         $checksum = substr($stringIban, 2, 2);

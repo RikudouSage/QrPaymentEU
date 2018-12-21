@@ -6,11 +6,11 @@ trait ToStringIban
 {
     public function __toString()
     {
-        if (!method_exists($this, 'getIban')) {
+        if (!method_exists($this, 'asString')) {
             return '';
         }
         try {
-            return $this->getIban();
+            return $this->asString();
         } catch (\Throwable $exception) {
             return '';
         }

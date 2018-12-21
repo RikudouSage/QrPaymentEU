@@ -36,7 +36,7 @@ class CzechIbanAdapter implements IbanInterface
      *
      * @return string
      */
-    public function getIban(): string
+    public function asString(): string
     {
         if (is_null($this->iban)) {
             $part1 = ord('C') - ord('A') + 10;
