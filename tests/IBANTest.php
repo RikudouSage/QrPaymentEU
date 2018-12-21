@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: root
  * Date: 15.12.18
- * Time: 2:11
+ * Time: 2:11.
  */
 
 namespace rikudou\EuQrPayment\Tests;
@@ -13,7 +13,6 @@ use rikudou\EuQrPayment\Iban\IBAN;
 
 class IBANTest extends TestCase
 {
-
     public function testGetIban()
     {
         $iban = new IBAN($this->getIbanString());
@@ -33,6 +32,6 @@ class IBANTest extends TestCase
 
     private function getIbanString(): string
     {
-        return "CZ5530300000001325090010";
+        return 'CZ5530300000001325090010';
     }
 }
