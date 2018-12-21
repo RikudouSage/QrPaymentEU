@@ -145,7 +145,7 @@ use rikudou\EuQrPayment\QrPayment;
 
 $payment = new QrPayment("CZ5530300000001325090010");
 $iban = $payment->getIban(); // holds instance of rikudou\EuQrPayment\Iban\IBAN
-$ibanAsString = $payment->getIban()->toString();
+$ibanAsString = $payment->getIban()->asString();
 $ibanAsString = (string) $payment->getIban();
 
 ```
