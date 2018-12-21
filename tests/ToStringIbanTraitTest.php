@@ -35,7 +35,7 @@ class ToStringIbanTraitTest extends TestCase
         $obj = new class() {
             use ToStringIban;
 
-            public function getIban(): string
+            public function asString(): string
             {
                 throw new \Exception();
             }
