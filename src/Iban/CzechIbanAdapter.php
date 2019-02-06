@@ -58,6 +58,7 @@ class CzechIbanAdapter implements IbanInterface
             foreach (str_split($numeric) as $n) {
                 $mod = ($mod . $n) % 97;
             }
+            $mod = intval($mod);
 
             $this->iban = sprintf('%.2s%02d%04d%06d%010d', 'CZ', 98 - $mod, $this->bankCode, $accountPrefix, $accountNumber);
         }

@@ -30,7 +30,7 @@ class GenericIbanValidator implements ValidatorInterface
         $inverted = $numericAccount . $numericCountry . $checksum;
 
         try {
-            return Utils::bcmod($inverted, 97) === '1';
+            return Utils::bcmod($inverted, '97') === '1';
         } catch (\InvalidArgumentException $exception) {
             return false;
         }

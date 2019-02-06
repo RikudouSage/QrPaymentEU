@@ -7,8 +7,10 @@ matrix:
         - USE_FIXER="1"
     - php: 7.2
       env:
-        - PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
+        - USE_COVERAGE="1"
+        - USE_PHPSTAN="1"
         - USE_FIXER="1"
+        - PHPUNIT_FLAGS="--coverage-clover ./tmp/clover.xml"
     - php: 7.3
       env:
         - COMPOSER_FLAGS="--ignore-platform-reqs"
@@ -18,9 +20,10 @@ install: composer install $COMPOSER_FLAGS
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - '[[ $USE_FIXER != "1" ]] || vendor/bin/php-cs-fixer fix src/ --dry-run --verbose'
+  - '[[ $USE_PHPSTAN != "1" ]] || composer phpstan'
 
 after_script:
-  - '[[ $PHPUNIT_FLAGS = "" ]] || ./vendor/bin/php-coveralls --verbose'
+  - '[[ $USE_COVERAGE != "1" ]] || ./vendor/bin/php-coveralls --verbose'
 
 branches:
   only:
