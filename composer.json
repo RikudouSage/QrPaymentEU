@@ -30,9 +30,9 @@
     "phpoffice/phpspreadsheet": "^1.5",
     "phpunit/phpunit": "^7.5",
     "endroid/qr-code": "^3.2",
-    "satooshi/php-coveralls": "^2.0",
     "friendsofphp/php-cs-fixer": "^2.13",
-    "phpstan/phpstan": "^0.11.1"
+    "phpstan/phpstan": "^0.11.1",
+    "php-coveralls/php-coveralls": "^2.1"
   },
   "autoload-dev": {
     "psr-4": {
