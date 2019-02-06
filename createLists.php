@@ -99,7 +99,7 @@ function createPurposeClass()
             $class[] = '';
             $class[] = "\t// {$classification}";
         }
-        $class[] = "\tconst {$constName} = '{$code}';";
+        $class[] = "\tpublic const {$constName} = '{$code}';";
 
         $lastClassification = $classification;
         ++$row;

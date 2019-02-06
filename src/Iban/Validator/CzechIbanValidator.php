@@ -22,6 +22,7 @@ class CzechIbanValidator implements ValidatorInterface
      * @var string
      */
     private $account;
+
     /**
      * @var string
      */

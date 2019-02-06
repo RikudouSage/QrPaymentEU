@@ -9,6 +9,7 @@ trait ToStringIban
         if (!method_exists($this, 'asString')) {
             return '';
         }
+
         try {
             return $this->asString();
         } catch (\Throwable $exception) {
