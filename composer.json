@@ -37,5 +37,8 @@
     "psr-4": {
       "rikudou\\EuQrPayment\\Tests\\": "tests/"
     }
+  },
+  "scripts": {
+    "fixer": "php-cs-fixer fix src --verbose"
   }
 }
