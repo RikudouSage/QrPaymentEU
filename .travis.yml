@@ -12,9 +12,6 @@ matrix:
     - php: 7.3
       env:
         - COMPOSER_FLAGS="--ignore-platform-reqs"
-    - php: nightly
-      env:
-        - COMPOSER_FLAGS="--ignore-platform-reqs"
 
 install: composer install $COMPOSER_FLAGS
 
