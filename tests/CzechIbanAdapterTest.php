@@ -4,6 +4,7 @@ namespace rikudou\EuQrPayment\Tests;
 
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\CzechIbanAdapter;
+use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class CzechIbanAdapterTest extends TestCase
 {
@@ -63,7 +64,7 @@ class CzechIbanAdapterTest extends TestCase
 
     public function testGetValidator()
     {
-        $this->assertEquals(true, $this->getIban(1325090010, 3030)->getValidator()->isValid());
+        $this->assertInstanceOf(ValidatorInterface::class, $this->getIban(1325090010, 3030)->getValidator());
     }
 
     /**

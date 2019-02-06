@@ -3,7 +3,9 @@
 namespace rikudou\EuQrPayment\Iban;
 
 use rikudou\EuQrPayment\Helper\ToStringIban;
+use rikudou\EuQrPayment\Iban\Validator\CompoundValidator;
 use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
+use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class CzechIbanAdapter implements IbanInterface
@@ -70,6 +72,9 @@ class CzechIbanAdapter implements IbanInterface
      */
     public function getValidator(): ?ValidatorInterface
     {
-        return new CzechIbanValidator($this->accountNumber, $this->bankCode);
+        return new CompoundValidator(
+            new CzechIbanValidator($this->accountNumber, $this->bankCode),
+            new GenericIbanValidator($this)
+        );
     }
 }
