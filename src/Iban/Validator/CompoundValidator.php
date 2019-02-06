@@ -19,11 +19,12 @@ class CompoundValidator implements ValidatorInterface
 
     public function isValid(): bool
     {
-        $isValid = true;
         foreach ($this->validators as $validator) {
-            $isValid = $isValid && $validator->isValid();
+            if (!$validator->isValid()) {
+                return false;
+            }
         }
 
-        return $isValid;
+        return true;
     }
 }

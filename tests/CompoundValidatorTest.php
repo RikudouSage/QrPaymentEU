@@ -61,6 +61,13 @@ class CompoundValidatorTest extends TestCase
             $this->invalidGenericValidator()
         );
 
+        // the exception should not be thrown because the compound validator
+        // should not check anymore once it finds validator that returns false
+        $mixed3 = new CompoundValidator(
+            $this->invalidFakeValidator(),
+            $this->fakeValidatorThatThrowsException()
+        );
+
         $this->assertTrue($valid1->isValid());
         $this->assertTrue($valid2->isValid());
         $this->assertTrue($valid3->isValid());
@@ -71,6 +78,7 @@ class CompoundValidatorTest extends TestCase
         $this->assertFalse($invalid4->isValid());
         $this->assertFalse($mixed1->isValid());
         $this->assertFalse($mixed2->isValid());
+        $this->assertFalse($mixed3->isValid());
     }
 
     private function validGenericValidator(): GenericIbanValidator
@@ -109,6 +117,16 @@ class CompoundValidatorTest extends TestCase
             public function isValid(): bool
             {
                 return false;
+            }
+        };
+    }
+
+    private function fakeValidatorThatThrowsException(): ValidatorInterface
+    {
+        return new class() implements ValidatorInterface {
+            public function isValid(): bool
+            {
+                throw new \RuntimeException();
             }
         };
     }
