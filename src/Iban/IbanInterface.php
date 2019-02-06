@@ -7,6 +7,13 @@ use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 interface IbanInterface
 {
     /**
+     * Returns the resulting IBAN, returns empty string if the IBAN is not valid.
+     *
+     * @return string
+     */
+    public function __toString();
+
+    /**
      * Returns the resulting IBAN.
      *
      * @return string
@@ -19,11 +26,4 @@ interface IbanInterface
      * @return ValidatorInterface|null
      */
     public function getValidator(): ?ValidatorInterface;
-
-    /**
-     * Returns the resulting IBAN, returns empty string if the IBAN is not valid.
-     *
-     * @return string
-     */
-    public function __toString();
 }

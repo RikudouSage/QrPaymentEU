@@ -9,12 +9,12 @@ namespace rikudou\EuQrPayment\Sepa;
  */
 class CharacterSet
 {
-    const UTF_8 = 1;
-    const ISO_8859_1 = 2;
-    const ISO_8859_2 = 3;
-    const ISO_8859_4 = 4;
-    const ISO_8859_5 = 5;
-    const ISO_8859_7 = 6;
-    const ISO_8859_10 = 7;
-    const ISO_8859_15 = 8;
+    public const UTF_8 = 1;
+    public const ISO_8859_1 = 2;
+    public const ISO_8859_2 = 3;
+    public const ISO_8859_4 = 4;
+    public const ISO_8859_5 = 5;
+    public const ISO_8859_7 = 6;
+    public const ISO_8859_10 = 7;
+    public const ISO_8859_15 = 8;
 }
