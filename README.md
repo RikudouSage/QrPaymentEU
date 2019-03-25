@@ -4,8 +4,8 @@
 [![Coverage Status](https://img.shields.io/coveralls/github/RikudouSage/QrPaymentEU/master.svg)](https://coveralls.io/github/RikudouSage/QrPaymentEU?branch=master)
 [![Download](https://img.shields.io/packagist/dt/rikudou/euqrpayment.svg)](https://packagist.org/packages/rikudou/euqrpayment)
 
-Library to generate QR payment codes for European Union (EPC standard). Currently used in
-Germany, Austria, Netherlands, Finland and Belgium.
+Library to generate QR payment codes for European Union (EPC standard, also called GiroCode in Germany).
+Currently used in Germany, Austria, Netherlands, Finland and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
