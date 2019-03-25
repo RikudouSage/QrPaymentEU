@@ -11,8 +11,6 @@ Germany, Austria, Netherlands and Belgium.
 
 > Using Symfony? See the [QR Payment Bundle](https://github.com/RikudouSage/QrPaymentBundle).
 
-> As this is currently a beta release, the public api is not stable and may change anytime.
-
 ## Installation
 
 Via composer: `composer require rikudou/euqrpayment`
