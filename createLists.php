@@ -15,7 +15,7 @@ function write(string $string, $exit = false)
 
 function createPurposeClass()
 {
-    $xlsDocument = 'https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_2Q2018_August2018_v2.xls';
+    $xlsDocument = 'https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_4Q2018_February2019_v1.xls';
 
     if (!class_exists('PhpOffice\PhpSpreadsheet\Spreadsheet')) {
         write('Please install also development dependencies to generate the Purpose class');

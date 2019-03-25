@@ -3,7 +3,7 @@
 namespace rikudou\EuQrPayment\Sepa;
 
 /**
- * @see https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_2Q2018_August2018_v2.xls
+ * @see https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_4Q2018_February2019_v1.xls
  */
 class Purpose
 {
@@ -110,7 +110,7 @@ class Purpose
     public const SERVICE_CHARGES = 'SERV';
     public const SUBSCRIPTION = 'SUBS';
     public const SUPPLIER_PAYMENT = 'SUPP';
-    public const TRADE_SERVICES = 'TRAD';
+    public const COMMERCIAL = 'TRAD';
 
     // Consumer
     public const CHARITY_PAYMENT = 'CHAR';
@@ -198,6 +198,7 @@ class Purpose
     public const REIMBURSEMENT_OF_A_PREVIOUS_ERRONEOUS_TRANSACTION = 'RIMB';
     public const BILATERAL_REPO_INTERNET_NETTING = 'RPNT';
     public const ROUND_ROBIN = 'RRBN';
+    public const REIMBURSEMENT_RECEIVED_CREDIT_TRANSFER = 'RRCT';
     public const RECEIVE_AGAINST_PAYMENT = 'RVPM';
     public const PAYMENT_SLIP_INSTRUCTION = 'SLPI';
     public const SPLIT_PAYMENTS = 'SPLT';
@@ -293,6 +294,7 @@ class Purpose
     public const PRICE_PAYMENT = 'PRCP';
     public const REHABILITATION_SUPPORT = 'RHBS';
     public const SALARY_PAYMENT = 'SALA';
+    public const SALARY_PENSION_SUM_PAYMENT = 'SPSP';
     public const SOCIAL_SECURITY_BENEFIT = 'SSBE';
 
     // Securities Lending
