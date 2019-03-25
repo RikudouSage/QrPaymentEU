@@ -5,7 +5,7 @@
 [![Download](https://img.shields.io/packagist/dt/rikudou/euqrpayment.svg)](https://packagist.org/packages/rikudou/euqrpayment)
 
 Library to generate QR payment codes for European Union (EPC standard). Currently used in
-Germany, Austria, Netherlands and Belgium.
+Germany, Austria, Netherlands, Finland and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
