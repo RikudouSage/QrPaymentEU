@@ -3,7 +3,7 @@
 namespace rikudou\EuQrPayment\Sepa;
 
 /**
- * @see https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_4Q2018_February2019_v1.xls
+ * @see https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_2Q2019_August2019_v1_0.xls
  */
 class Purpose
 {
