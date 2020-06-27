@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 function write(string $string, $exit = false)
@@ -15,10 +17,11 @@ function write(string $string, $exit = false)
 
 function createPurposeClass()
 {
-    $xlsDocument = 'https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_2Q2019_August2019_v1_0.xls';
+    $xlsDocument = 'https://www.iso20022.org/sites/default/files/2020-05/ExternalCodeSets_2Q2020_May2020_v1.xls';
 
     if (!class_exists('PhpOffice\PhpSpreadsheet\Spreadsheet')) {
         write('Please install also development dependencies to generate the Purpose class');
+        return;
     }
 
     $file = __DIR__ . '/src/Sepa/Purpose.php';
@@ -43,7 +46,7 @@ function createPurposeClass()
     $tmpFile = tempnam(sys_get_temp_dir(), 'qrPaymentEuPurpose');
     file_put_contents($tmpFile, file_get_contents($xlsDocument));
 
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($tmpFile);
+    $spreadsheet = IOFactory::load($tmpFile);
     $worksheet = $spreadsheet->getSheetByName('11-Purpose');
 
     $row = 5;

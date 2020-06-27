@@ -3,7 +3,7 @@
 namespace rikudou\EuQrPayment\Sepa;
 
 /**
- * @see https://www.iso20022.org/sites/default/files/HomeDocuments/ExternalCodeSets_2Q2019_August2019_v1_0.xls
+ * @see https://www.iso20022.org/sites/default/files/2020-05/ExternalCodeSets_2Q2020_May2020_v1.xls
  */
 class Purpose
 {
@@ -17,7 +17,7 @@ class Purpose
     // Card Settlement
     public const CARD_BULK_CLEARING = 'CBLK';
     public const CARD_PAYMENT_WITH_CASH_BACK = 'CDCB';
-    public const CASH_DISBURSEMENT = 'CDCD';
+    public const CASH_DISBURSEMENT_CASH_SETTLEMENT = 'CDCD';
     public const CASH_DISBURSEMENT_WITH_SURCHARGING = 'CDCS';
     public const CARD_DEFERRED_PAYMENT = 'CDDP';
     public const ORIGINAL_CREDIT = 'CDOC';
@@ -30,7 +30,7 @@ class Purpose
     public const ACCOUNT_MANAGEMENT = 'ACCT';
     public const CASH_MANAGEMENT_TRANSFER = 'CASH';
     public const COLLECTION_PAYMENT = 'COLL';
-    public const CASH_MGMT_CASH_DISBURSEMENT = 'CSDB';
+    public const CASH_DISBURSEMENT_CASH_MANAGEMENT = 'CSDB';
     public const DEPOSIT = 'DEPT';
     public const INTRA_COMPANY_PAYMENT = 'INTC';
     public const LIQUIDITY_MANAGEMENT = 'LIMA';
