@@ -7,7 +7,7 @@
     "qr",
     "payment"
   ],
-  "license": "MTI",
+  "license": "MIT",
   "authors": [
     {
       "name": "Dominik Chrástecký",
