@@ -36,7 +36,7 @@ class GenericIbanValidator implements ValidatorInterface
         }
     }
 
-    private function getNumericRepresentation(string $string)
+    private function getNumericRepresentation(string $string): string
     {
         $result = '';
         $length = strlen($string);

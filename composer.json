@@ -16,7 +16,8 @@
   ],
   "require": {
     "php": "^7.1",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "rikudou/qr-payment-interface": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -31,7 +32,7 @@
     "phpunit/phpunit": "^7.5",
     "endroid/qr-code": "^3.2",
     "friendsofphp/php-cs-fixer": "^2.13",
-    "phpstan/phpstan": "^0.11.1",
+    "phpstan/phpstan": "^0.12.40",
     "php-coveralls/php-coveralls": "^2.1"
   },
   "autoload-dev": {

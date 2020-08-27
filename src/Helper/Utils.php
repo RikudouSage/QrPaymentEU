@@ -2,10 +2,22 @@
 
 namespace rikudou\EuQrPayment\Helper;
 
+use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionException;
+
 class Utils
 {
+    /**
+     * @var mixed[]
+     */
     private static $constants = [];
 
+    /**
+     * @param mixed $variable
+     *
+     * @return string
+     */
     public static function getType($variable): string
     {
         if (is_object($variable)) {
@@ -17,14 +29,21 @@ class Utils
         }
     }
 
+    /**
+     * @param string $class
+     *
+     * @throws ReflectionException
+     *
+     * @return mixed[]
+     */
     public static function getConstants(string $class)
     {
         if (!class_exists($class)) {
-            throw new \InvalidArgumentException("The class '{$class}' is not defined");
+            throw new InvalidArgumentException("The class '{$class}' is not defined");
         }
 
         if (!isset(static::$constants[$class])) {
-            $reflection = new \ReflectionClass($class);
+            $reflection = new ReflectionClass($class);
             static::$constants[$class] = $reflection->getConstants();
         }
 
@@ -34,21 +53,21 @@ class Utils
     public static function bcmod(string $dividend, string $divisor, bool $forceOwnImplementation = false): string
     {
         if (!is_numeric($dividend)) {
-            throw new \InvalidArgumentException('The dividend must be a number');
+            throw new InvalidArgumentException('The dividend must be a number');
         }
         if (!is_numeric($divisor)) {
-            throw new \InvalidArgumentException('The divisor must be a number');
+            throw new InvalidArgumentException('The divisor must be a number');
         }
         if (!function_exists('bcmod') || $forceOwnImplementation) {
             if (strval(intval($divisor)) !== $divisor) {
-                throw new \InvalidArgumentException('The custom implementation does not support large numbers in divisor');
+                throw new InvalidArgumentException('The custom implementation does not support large numbers in divisor');
             }
 
             $mod = '';
 
             foreach (str_split($dividend) as $char) {
                 if ($char === '-') {
-                    throw new \InvalidArgumentException('The custom implementation of bcmod does not support negative numbers');
+                    throw new InvalidArgumentException('The custom implementation of bcmod does not support negative numbers');
                 }
                 $mod = ($mod . $char) % $divisor;
             }
