@@ -2,14 +2,18 @@
 
 namespace rikudou\EuQrPayment;
 
+use DateTimeInterface;
 use Endroid\QrCode\QrCode;
 use rikudou\EuQrPayment\Exceptions\InvalidIbanException;
+use rikudou\EuQrPayment\Exceptions\InvalidOptionException;
+use rikudou\EuQrPayment\Exceptions\UnsupportedMethodException;
 use rikudou\EuQrPayment\Helper\Utils;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Iban\IbanInterface;
 use rikudou\EuQrPayment\Sepa\CharacterSet;
+use Rikudou\QrPayment\QrPaymentInterface;
 
-final class QrPayment
+final class QrPayment implements QrPaymentInterface
 {
     /**
      * @var IbanInterface
@@ -353,6 +357,36 @@ final class QrPayment
     }
 
     /**
+     * @param array<string, string|float|int> $options
+     *
+     * @return QrPayment
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $key => $value) {
+            $methodName = 'set' . ucfirst($key);
+            if (method_exists($this, $methodName)) {
+                /** @phpstan-ignore-next-line */
+                call_user_func([$this, $methodName], $value);
+            } else {
+                throw new InvalidOptionException("The option '{$key}' is invalid");
+            }
+        }
+
+        return $this;
+    }
+
+    public function setDueDate(DateTimeInterface $dueDate)
+    {
+        throw new UnsupportedMethodException('The European standard does not support setting due date');
+    }
+
+    public function getDueDate(): DateTimeInterface
+    {
+        throw new UnsupportedMethodException('The European standard does not support setting due date');
+    }
+
+    /**
      * @param string $string
      * @param int    $max
      * @param int    $min
@@ -365,7 +399,7 @@ final class QrPayment
         }
     }
 
-    private function checkRequiredParameters()
+    private function checkRequiredParameters(): void
     {
         if (!$this->getBeneficiaryName()) {
             throw new \LogicException('The beneficiary name is a mandatory parameter');

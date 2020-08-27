@@ -2,22 +2,24 @@
 
 namespace rikudou\EuQrPayment\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Helper\Utils;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Tests\Data\ConstantsClass;
+use stdClass;
 
 class UtilsTest extends TestCase
 {
     public function testGetConstants()
     {
-        $this->assertEquals([], Utils::getConstants(\stdClass::class));
+        $this->assertEquals([], Utils::getConstants(stdClass::class));
         $this->assertEquals([
             'NAME1' => 'value1',
             'NAME2' => 'value2',
         ], Utils::getConstants(ConstantsClass::class));
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Utils::getConstants('NonExistentClass');
     }
 
@@ -30,7 +32,7 @@ class UtilsTest extends TestCase
         $bool = true;
         $null = null;
         $array = [];
-        $class1 = new \stdClass();
+        $class1 = new stdClass();
         $class2 = new IBAN('CZ5530300000001325090010');
         $stream = fopen($tmpFile, 'r');
 
@@ -60,25 +62,25 @@ class UtilsTest extends TestCase
 
     public function testBcmodNonNumericDividend()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Utils::bcmod('test', 123);
     }
 
     public function testBcmodNonNumericDivisor()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Utils::bcmod(123, 't');
     }
 
     public function testBcmodTooBigDivisor()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Utils::bcmod(1, '87289320019831928372193981274715795247', true);
     }
 
     public function testBcmodNegativeNumber()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         Utils::bcmod(-5, 1, true);
     }
 }
