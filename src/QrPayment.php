@@ -391,7 +391,7 @@ class QrPayment implements QrPaymentInterface
      * @param int    $max
      * @param int    $min
      */
-    private function checkLength(string $string, int $max, int $min = 1): void
+    protected function checkLength(string $string, int $max, int $min = 1): void
     {
         $length = mb_strlen($string);
         if ($length > $max || $length < $min) {
@@ -399,7 +399,7 @@ class QrPayment implements QrPaymentInterface
         }
     }
 
-    private function checkRequiredParameters(): void
+    protected function checkRequiredParameters(): void
     {
         if (!$this->getBeneficiaryName()) {
             throw new \LogicException('The beneficiary name is a mandatory parameter');
