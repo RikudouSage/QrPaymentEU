@@ -13,7 +13,7 @@ use rikudou\EuQrPayment\Iban\IbanInterface;
 use rikudou\EuQrPayment\Sepa\CharacterSet;
 use Rikudou\QrPayment\QrPaymentInterface;
 
-final class QrPayment implements QrPaymentInterface
+class QrPayment implements QrPaymentInterface
 {
     /**
      * @var IbanInterface
