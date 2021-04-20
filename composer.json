@@ -43,10 +43,5 @@
   "scripts": {
     "fixer": "php-cs-fixer fix src --verbose",
     "phpstan": "phpstan analyse --level=7 src"
-  },
-  "config": {
-    "platform": {
-      "php": "7.3.27"
-    }
   }
 }
