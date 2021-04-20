@@ -42,6 +42,7 @@
   },
   "scripts": {
     "fixer": "php-cs-fixer fix src --verbose",
-    "phpstan": "phpstan analyse --level=7 src"
+    "phpstan": "phpstan analyse --level=7 src",
+    "phpunit": "phpunit"
   }
 }
