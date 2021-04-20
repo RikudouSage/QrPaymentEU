@@ -1,6 +1,6 @@
 # QR code payment (EU)
 
-[![Build Status](https://img.shields.io/travis/com/RikudouSage/QrPaymentEU/master.svg)](https://travis-ci.com/RikudouSage/QrPaymentEU)
+[![Tests](https://github.com/RikudouSage/QrPaymentEU/actions/workflows/test.yaml/badge.svg)](https://github.com/RikudouSage/QrPaymentEU/actions/workflows/test.yaml)
 [![Coverage Status](https://img.shields.io/coveralls/github/RikudouSage/QrPaymentEU/master.svg)](https://coveralls.io/github/RikudouSage/QrPaymentEU?branch=master)
 [![Download](https://img.shields.io/packagist/dt/rikudou/euqrpayment.svg)](https://packagist.org/packages/rikudou/euqrpayment)
 
