@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "php": "^7.1|^8.0",
+    "php": "^7.3|^8.0",
     "ext-mbstring": "*",
     "rikudou/qr-payment-interface": "^1.0"
   },
@@ -29,7 +29,7 @@
   },
   "require-dev": {
     "phpoffice/phpspreadsheet": "^1.5",
-    "phpunit/phpunit": "^7.5",
+    "phpunit/phpunit": "^9.5",
     "endroid/qr-code": "^3.2",
     "friendsofphp/php-cs-fixer": "^2.13",
     "phpstan/phpstan": "^0.12.40",
@@ -43,5 +43,10 @@
   "scripts": {
     "fixer": "php-cs-fixer fix src --verbose",
     "phpstan": "phpstan analyse --level=7 src"
+  },
+  "config": {
+    "platform": {
+      "php": "7.3.27"
+    }
   }
 }
