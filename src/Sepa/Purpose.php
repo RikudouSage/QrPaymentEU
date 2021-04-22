@@ -10,8 +10,8 @@ class Purpose
     // Deprecated names
     /** @deprecated */
     public const GUARANTEED_EPAYMENT = self::GUARANTEED_E_PAYMENT;
-    /** @deprecated */
-    public const EPAYMENT_RETURN = self::E_PAYMENT_RETURN;
+//    /** @deprecated */
+//    public const EPAYMENT_RETURN = self::E_PAYMENT_RETURN;
     /** @deprecated */
     public const NON_GUARANTEED_EPAYMENT = self::NON_GUARANTEED_E_PAYMENT;
     /** @deprecated */
