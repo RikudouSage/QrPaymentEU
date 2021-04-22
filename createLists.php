@@ -17,7 +17,7 @@ function write(string $string, $exit = false)
 
 function createPurposeClass()
 {
-    $xlsDocument = 'https://www.iso20022.org/sites/default/files/2020-05/ExternalCodeSets_2Q2020_May2020_v1.xls';
+    $xlsDocument = 'https://www.iso20022.org/sites/default/files/2021-03/ExternalCodeSets_4Q2020_February2021_v1.xlsx';
 
     if (!class_exists('PhpOffice\PhpSpreadsheet\Spreadsheet')) {
         write('Please install also development dependencies to generate the Purpose class');
@@ -59,12 +59,12 @@ function createPurposeClass()
     ];
 
     $constantify = function (string $name) {
-        $name = preg_replace_callback('@([A-Z]{2,})@', function ($matches) {
-            return ucfirst(strtolower($matches[1]));
+        $name = preg_replace_callback('@([A-Z]{2,})(?!$)@', function ($matches) {
+            return ucfirst(strtolower(substr($matches[1], 0, -1))) . substr($matches[1], -1);
         }, $name);
         $name = ucwords($name);
         $name = str_replace(' ', '', $name);
-        $name = preg_replace_callback('@([A-Z])@', function ($matches) {
+        $name = preg_replace_callback('@([A-Z]+$|[A-Z])@', function ($matches) {
             return '_' . $matches[1];
         }, $name);
         $name = strtoupper($name);

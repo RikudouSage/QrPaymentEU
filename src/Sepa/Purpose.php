@@ -3,10 +3,34 @@
 namespace rikudou\EuQrPayment\Sepa;
 
 /**
- * @see https://www.iso20022.org/sites/default/files/2020-05/ExternalCodeSets_2Q2020_May2020_v1.xls
+ * @see https://www.iso20022.org/sites/default/files/2021-03/ExternalCodeSets_4Q2020_February2021_v1.xlsx
  */
 class Purpose
 {
+    // Deprecated names
+    /** @deprecated */
+    public const GUARANTEED_EPAYMENT = self::GUARANTEED_E_PAYMENT;
+    /** @deprecated */
+    public const EPAYMENT_RETURN = self::E_PAYMENT_RETURN;
+    /** @deprecated */
+    public const NON_GUARANTEED_EPAYMENT = self::NON_GUARANTEED_E_PAYMENT;
+    /** @deprecated */
+    public const LATE_PAYMENT_OF_FEES_CHARGES = self::LATE_PAYMENT_OF_FEES_AND_CHARGES;
+    /** @deprecated */
+    public const TBA_PAIROFF_NETTING = self::TBA_PAIR_OFF_NETTING;
+    /** @deprecated */
+    public const TRIPARTY_REPO_NETTING = self::TRI_PARTY_REPO_NETTING;
+    /** @deprecated */
+    public const INVESTMENT_SECURITIES = self::INVESTMENT_AND_SECURITIES;
+    /** @deprecated */
+    public const LENDING_EQUITY_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_EQUITY_MARKED_TO_MARKET_CASH_COLLATERAL;
+    /** @deprecated */
+    public const LENDING_FIXED_INCOME_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_FIXED_INCOME_MARKED_TO_MARKET_CASH_COLLATERAL;
+    /** @deprecated */
+    public const LENDING_UNSPECIFIED_TYPE_OF_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_UNSPECIFIED_TYPE_OF_MARKED_TO_MARKET_CASH_COLLATERAL;
+    /** @deprecated */
+    public const CABLE_TVBILL = self::CABLE_TV_BILL;
+
     // Bank Debt
     public const BANK_LOAN_DELAYED_DRAW_FUNDING = 'BKDF';
     public const BANK_LOAN_FEES = 'BKFE';
@@ -118,9 +142,9 @@ class Purpose
     public const MOBILE_P_P_PAYMENT = 'MP2P';
 
     // E-Commerce
-    public const GUARANTEED_EPAYMENT = 'ECPG';
-    public const EPAYMENT_RETURN = 'ECPR';
-    public const NON_GUARANTEED_EPAYMENT = 'ECPU';
+    public const GUARANTEED_E_PAYMENT = 'ECPG';
+    public const E_PAYMENT_RETURN = 'ECPR';
+    public const NON_GUARANTEED_E_PAYMENT = 'ECPU';
     public const EPAYMENT = 'EPAY';
 
     // Finance
@@ -171,7 +195,7 @@ class Purpose
     public const EDUCATION = 'EDUC';
     public const FACTOR_UPDATE_RELATED_PAYMENT = 'FACT';
     public const FINANCIAL_AID_IN_CASE_OF_NATURAL_DISASTER = 'FAND';
-    public const LATE_PAYMENT_OF_FEES_CHARGES = 'FCPM';
+    public const LATE_PAYMENT_OF_FEES_AND_CHARGES = 'FCPM';
     public const PAYMENT_OF_FEES = 'FEES';
     public const GOVERNMENT_PAYMENT = 'GOVT';
     public const IRREVOCABLE_CREDIT_CARD_PAYMENT = 'ICCP';
@@ -199,17 +223,18 @@ class Purpose
     public const BILATERAL_REPO_INTERNET_NETTING = 'RPNT';
     public const ROUND_ROBIN = 'RRBN';
     public const REIMBURSEMENT_RECEIVED_CREDIT_TRANSFER = 'RRCT';
+    public const RELATED_REQUEST_TO_PAY = 'RRTP';
     public const RECEIVE_AGAINST_PAYMENT = 'RVPM';
     public const PAYMENT_SLIP_INSTRUCTION = 'SLPI';
     public const SPLIT_PAYMENTS = 'SPLT';
     public const STUDY = 'STDY';
-    public const TBA_PAIROFF_NETTING = 'TBAN';
+    public const TBA_PAIR_OFF_NETTING = 'TBAN';
     public const TELECOMMUNICATIONS_BILL = 'TBIL';
     public const TOWN_COUNCIL_SERVICE_CHARGES = 'TCSC';
     public const TELEPHONE_INITIATED_TRANSACTION = 'TELI';
     public const TMPG_CLAIM_PAYMENT = 'TMPG';
     public const TRI_PARTY_REPO_INTEREST = 'TPRI';
-    public const TRIPARTY_REPO_NETTING = 'TPRP';
+    public const TRI_PARTY_REPO_NETTING = 'TPRP';
     public const TRUNCATED_PAYMENT_SLIP = 'TRNC';
     public const TRAVELLER_CHEQUE = 'TRVC';
     public const INTERNET_INITIATED_TRANSACTION = 'WEBI';
@@ -235,7 +260,7 @@ class Purpose
     public const DIVIDEND = 'DIVD';
     public const FOREIGN_EXCHANGE = 'FREX';
     public const HEDGING = 'HEDG';
-    public const INVESTMENT_SECURITIES = 'INVS';
+    public const INVESTMENT_AND_SECURITIES = 'INVS';
     public const PRECIOUS_METAL = 'PRME';
     public const SAVINGS = 'SAVG';
     public const SECURITIES = 'SECU';
@@ -301,9 +326,9 @@ class Purpose
     public const LENDING_BUY_IN_NETTING = 'LBIN';
     public const LENDING_CASH_COLLATERAL_FREE_MOVEMENT = 'LCOL';
     public const LENDING_FEES = 'LFEE';
-    public const LENDING_EQUITY_MARKEDTOMARKET_CASH_COLLATERAL = 'LMEQ';
-    public const LENDING_FIXED_INCOME_MARKEDTOMARKET_CASH_COLLATERAL = 'LMFI';
-    public const LENDING_UNSPECIFIED_TYPE_OF_MARKEDTOMARKET_CASH_COLLATERAL = 'LMRK';
+    public const LENDING_EQUITY_MARKED_TO_MARKET_CASH_COLLATERAL = 'LMEQ';
+    public const LENDING_FIXED_INCOME_MARKED_TO_MARKET_CASH_COLLATERAL = 'LMFI';
+    public const LENDING_UNSPECIFIED_TYPE_OF_MARKED_TO_MARKET_CASH_COLLATERAL = 'LMRK';
     public const LENDING_REBATE_PAYMENTS = 'LREB';
     public const LENDING_REVENUE_PAYMENTS = 'LREV';
     public const LENDING_CLAIM_PAYMENT = 'LSFL';
@@ -336,7 +361,7 @@ class Purpose
     public const ROAD_PRICING = 'TRPT';
 
     // Utilities
-    public const CABLE_TVBILL = 'CBTV';
+    public const CABLE_TV_BILL = 'CBTV';
     public const ELECTRICITY_BILL = 'ELEC';
     public const ENERGIES = 'ENRG';
     public const GAS_BILL = 'GASB';
