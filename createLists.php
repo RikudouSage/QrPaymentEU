@@ -59,7 +59,6 @@ function createPurposeClass()
     ];
 
     $constantify = function (string $name) {
-        $originalName = $name;
         $name = preg_replace_callback('@([A-Z]{2,})(?!$)@', function ($matches) {
             return ucfirst(strtolower(substr($matches[1], 0, -1))) . substr($matches[1], -1);
         }, $name);
