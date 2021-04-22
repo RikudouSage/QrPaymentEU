@@ -2,35 +2,33 @@
 
 namespace rikudou\EuQrPayment\Sepa;
 
-use JetBrains\PhpStorm\Deprecated;
-
 /**
  * @see https://www.iso20022.org/sites/default/files/2021-03/ExternalCodeSets_4Q2020_February2021_v1.xlsx
  */
 class Purpose
 {
     // Deprecated names
-    #[Deprecated]
+    /** @deprecated */
     public const GUARANTEED_EPAYMENT = self::GUARANTEED_E_PAYMENT;
-    #[Deprecated]
+    /** @deprecated */
     public const EPAYMENT_RETURN = self::E_PAYMENT_RETURN;
-    #[Deprecated]
+    /** @deprecated */
     public const NON_GUARANTEED_EPAYMENT = self::NON_GUARANTEED_E_PAYMENT;
-    #[Deprecated]
+    /** @deprecated */
     public const LATE_PAYMENT_OF_FEES_CHARGES = self::LATE_PAYMENT_OF_FEES_AND_CHARGES;
-    #[Deprecated]
+    /** @deprecated */
     public const TBA_PAIROFF_NETTING = self::TBA_PAIR_OFF_NETTING;
-    #[Deprecated]
+    /** @deprecated */
     public const TRIPARTY_REPO_NETTING = self::TRI_PARTY_REPO_NETTING;
-    #[Deprecated]
+    /** @deprecated */
     public const INVESTMENT_SECURITIES = self::INVESTMENT_AND_SECURITIES;
-    #[Deprecated]
+    /** @deprecated */
     public const LENDING_EQUITY_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_EQUITY_MARKED_TO_MARKET_CASH_COLLATERAL;
-    #[Deprecated]
+    /** @deprecated */
     public const LENDING_FIXED_INCOME_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_FIXED_INCOME_MARKED_TO_MARKET_CASH_COLLATERAL;
-    #[Deprecated]
+    /** @deprecated */
     public const LENDING_UNSPECIFIED_TYPE_OF_MARKEDTOMARKET_CASH_COLLATERAL = self::LENDING_UNSPECIFIED_TYPE_OF_MARKED_TO_MARKET_CASH_COLLATERAL;
-    #[Deprecated]
+    /** @deprecated */
     public const CABLE_TVBILL = self::CABLE_TV_BILL;
 
     // Bank Debt
