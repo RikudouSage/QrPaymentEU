@@ -3,7 +3,7 @@
 namespace rikudou\EuQrPayment\Iban;
 
 use Rikudou\Iban\Iban\IbanInterface as LibraryIbanInterface;
-use Rikudou\Iban\Validator\ValidatorInterface;
+use Rikudou\Iban\Validator\ValidatorInterface as LibraryValidatorInterface;
 
 interface IbanInterface extends LibraryIbanInterface
 {
@@ -24,7 +24,7 @@ interface IbanInterface extends LibraryIbanInterface
     /**
      * Returns the validator that checks whether the IBAN is valid.
      *
-     * @return ValidatorInterface|null
+     * @return LibraryValidatorInterface|null
      */
-    public function getValidator(): ?ValidatorInterface;
+    public function getValidator(): ?LibraryValidatorInterface;
 }

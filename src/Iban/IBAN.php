@@ -4,7 +4,7 @@ namespace rikudou\EuQrPayment\Iban;
 
 use rikudou\EuQrPayment\Helper\ToStringIban;
 use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
-use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
+use Rikudou\Iban\Validator\ValidatorInterface;
 
 class IBAN implements IbanInterface
 {

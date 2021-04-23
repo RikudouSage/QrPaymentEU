@@ -6,7 +6,7 @@ use rikudou\EuQrPayment\Helper\ToStringIban;
 use rikudou\EuQrPayment\Iban\Validator\CompoundValidator;
 use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
-use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
+use Rikudou\Iban\Validator\ValidatorInterface;
 
 class CzechIbanAdapter implements IbanInterface
 {
