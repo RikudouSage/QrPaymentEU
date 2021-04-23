@@ -4,21 +4,25 @@ namespace rikudou\EuQrPayment;
 
 use DateTimeInterface;
 use Endroid\QrCode\QrCode;
+use InvalidArgumentException;
+use LogicException;
 use rikudou\EuQrPayment\Config\Configuration;
 use rikudou\EuQrPayment\Config\ConfigurationInterface;
 use rikudou\EuQrPayment\Exceptions\InvalidIbanException;
 use rikudou\EuQrPayment\Exceptions\InvalidOptionException;
 use rikudou\EuQrPayment\Exceptions\UnsupportedMethodException;
+use rikudou\EuQrPayment\Helper\IbanConverter;
 use rikudou\EuQrPayment\Helper\Utils;
 use rikudou\EuQrPayment\Iban\IBAN;
-use rikudou\EuQrPayment\Iban\IbanInterface;
+use rikudou\EuQrPayment\Iban\IbanInterface as BundledIbanInterface;
 use rikudou\EuQrPayment\Sepa\CharacterSet;
+use Rikudou\Iban\Iban\IbanInterface as LibraryIbanInterface;
 use Rikudou\QrPayment\QrPaymentInterface;
 
 final class QrPayment implements QrPaymentInterface
 {
     /**
-     * @var IbanInterface
+     * @var LibraryIbanInterface
      */
     private $iban;
 
@@ -68,15 +72,24 @@ final class QrPayment implements QrPaymentInterface
     private $configuration;
 
     /**
-     * @param string|IbanInterface $iban
+     * @param string|BundledIbanInterface|LibraryIbanInterface $iban
      */
     public function __construct($iban, ?ConfigurationInterface $configuration = null)
     {
         if (is_string($iban)) {
             $iban = new IBAN($iban);
         }
-        if (!$iban instanceof IbanInterface) {
-            throw new \InvalidArgumentException('The IBAN must be a string or ' . IbanInterface::class . ', ' . Utils::getType($iban) . ' given');
+        if ($iban instanceof BundledIbanInterface) {
+            trigger_error(sprintf(
+                'The class "%s" is deprecated, please switch to "%s"',
+                BundledIbanInterface::class,
+                LibraryIbanInterface::class
+            ), E_USER_DEPRECATED);
+            $converter = new IbanConverter();
+            $iban = $converter->convert($iban);
+        }
+        if (!$iban instanceof LibraryIbanInterface) {
+            throw new InvalidArgumentException('The IBAN must be a string or ' . LibraryIbanInterface::class . ', ' . Utils::getType($iban) . ' given');
         }
         if ($configuration === null) {
             $configuration = new Configuration();
@@ -88,9 +101,9 @@ final class QrPayment implements QrPaymentInterface
     /**
      * Returns the provided IBAN.
      *
-     * @return IbanInterface
+     * @return LibraryIbanInterface
      */
-    public function getIban(): IbanInterface
+    public function getIban(): LibraryIbanInterface
     {
         return $this->iban;
     }
@@ -115,7 +128,7 @@ final class QrPayment implements QrPaymentInterface
     public function setCharacterSet(int $characterSet): QrPayment
     {
         if (!in_array($characterSet, Utils::getConstants(CharacterSet::class))) {
-            throw new \InvalidArgumentException("Invalid character set: {$characterSet}");
+            throw new InvalidArgumentException("Invalid character set: {$characterSet}");
         }
         $this->characterSet = $characterSet;
 
@@ -202,10 +215,10 @@ final class QrPayment implements QrPaymentInterface
     public function setAmount(float $amount): QrPayment
     {
         if ($amount < 0) {
-            throw new \InvalidArgumentException('The amount cannot be less than 0');
+            throw new InvalidArgumentException('The amount cannot be less than 0');
         }
         if ($amount > 999999999.99) {
-            throw new \InvalidArgumentException('The maximum amount is 999,999,999.99');
+            throw new InvalidArgumentException('The maximum amount is 999,999,999.99');
         }
         $this->amount = $amount;
 
@@ -357,7 +370,7 @@ final class QrPayment implements QrPaymentInterface
         $byteLength = strlen($result);
 
         if ($byteLength > 331) {
-            throw new \LogicException("The resulting QR string is limited to 331 bytes, yours has {$byteLength} bytes");
+            throw new LogicException("The resulting QR string is limited to 331 bytes, yours has {$byteLength} bytes");
         }
 
         return $result;
@@ -367,12 +380,12 @@ final class QrPayment implements QrPaymentInterface
      * Return QrCode object with QrString set, for more info see Endroid QrCode
      * documentation.
      *
-     * @return \Endroid\QrCode\QrCode
+     * @return QrCode
      */
     public function getQrImage(): QrCode
     {
         if (!class_exists("Endroid\QrCode\QrCode")) {
-            throw new \LogicException('Error: library endroid/qr-code is not loaded.');
+            throw new LogicException('Error: library endroid/qr-code is not loaded.');
         }
 
         return new QrCode($this->getQrString());
@@ -425,14 +438,14 @@ final class QrPayment implements QrPaymentInterface
     {
         $length = mb_strlen($string);
         if ($length > $max || $length < $min) {
-            throw new \InvalidArgumentException("The string should be between {$min} and {$max} characters long, your string contains {$length} characters");
+            throw new InvalidArgumentException("The string should be between {$min} and {$max} characters long, your string contains {$length} characters");
         }
     }
 
     private function checkRequiredParameters(): void
     {
         if (!$this->getBeneficiaryName()) {
-            throw new \LogicException('The beneficiary name is a mandatory parameter');
+            throw new LogicException('The beneficiary name is a mandatory parameter');
         }
     }
 }

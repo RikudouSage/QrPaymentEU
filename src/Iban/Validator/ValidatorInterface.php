@@ -2,7 +2,9 @@
 
 namespace rikudou\EuQrPayment\Iban\Validator;
 
-interface ValidatorInterface
+use Rikudou\Iban\Validator\ValidatorInterface as BundledValidatorInterface;
+
+interface ValidatorInterface extends BundledValidatorInterface
 {
     public function isValid(): bool;
 }

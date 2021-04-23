@@ -2,9 +2,10 @@
 
 namespace rikudou\EuQrPayment\Iban;
 
-use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
+use Rikudou\Iban\Iban\IbanInterface as LibraryIbanInterface;
+use Rikudou\Iban\Validator\ValidatorInterface;
 
-interface IbanInterface
+interface IbanInterface extends LibraryIbanInterface
 {
     /**
      * Returns the resulting IBAN, returns empty string if the IBAN is not valid.
