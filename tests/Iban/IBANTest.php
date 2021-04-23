@@ -2,8 +2,8 @@
 
 namespace rikudou\EuQrPayment\Tests\Iban;
 
-use rikudou\EuQrPayment\Iban\IBAN;
 use PHPUnit\Framework\TestCase;
+use rikudou\EuQrPayment\Iban\IBAN;
 
 class IBANTest extends TestCase
 {

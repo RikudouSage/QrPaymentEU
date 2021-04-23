@@ -2,9 +2,9 @@
 
 namespace rikudou\EuQrPayment\Tests\Iban\Validator;
 
+use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
-use PHPUnit\Framework\TestCase;
 
 class GenericIbanValidatorTest extends TestCase
 {

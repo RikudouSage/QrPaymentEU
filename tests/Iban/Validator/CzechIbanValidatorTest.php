@@ -2,8 +2,8 @@
 
 namespace rikudou\EuQrPayment\Tests\Iban\Validator;
 
-use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
 use PHPUnit\Framework\TestCase;
+use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
 
 class CzechIbanValidatorTest extends TestCase
 {

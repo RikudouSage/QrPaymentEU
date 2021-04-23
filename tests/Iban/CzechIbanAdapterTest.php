@@ -2,8 +2,8 @@
 
 namespace rikudou\EuQrPayment\Tests\Iban;
 
-use rikudou\EuQrPayment\Iban\CzechIbanAdapter;
 use PHPUnit\Framework\TestCase;
+use rikudou\EuQrPayment\Iban\CzechIbanAdapter;
 use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
 
 class CzechIbanAdapterTest extends TestCase
@@ -68,8 +68,8 @@ class CzechIbanAdapterTest extends TestCase
     }
 
     /**
-     * @param string|int $account
-     * @param string|int $bankCode
+     * @param string|int      $account
+     * @param string|int      $bankCode
      * @param string|int|null $prefix
      *
      * @return CzechIbanAdapter

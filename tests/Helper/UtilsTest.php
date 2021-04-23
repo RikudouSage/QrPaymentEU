@@ -3,8 +3,8 @@
 namespace rikudou\EuQrPayment\Tests\Helper;
 
 use InvalidArgumentException;
-use rikudou\EuQrPayment\Helper\Utils;
 use PHPUnit\Framework\TestCase;
+use rikudou\EuQrPayment\Helper\Utils;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Tests\Data\ConstantsClass;
 use stdClass;

@@ -3,9 +3,9 @@
 namespace rikudou\EuQrPayment\Tests\Iban\Validator;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Iban\Validator\CompoundValidator;
-use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
