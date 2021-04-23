@@ -4,6 +4,8 @@ namespace rikudou\EuQrPayment;
 
 use DateTimeInterface;
 use Endroid\QrCode\QrCode;
+use rikudou\EuQrPayment\Config\Configuration;
+use rikudou\EuQrPayment\Config\ConfigurationInterface;
 use rikudou\EuQrPayment\Exceptions\InvalidIbanException;
 use rikudou\EuQrPayment\Exceptions\InvalidOptionException;
 use rikudou\EuQrPayment\Exceptions\UnsupportedMethodException;
@@ -61,9 +63,14 @@ final class QrPayment implements QrPaymentInterface
     private $currency = 'EUR';
 
     /**
+     * @var ConfigurationInterface
+     */
+    private $configuration;
+
+    /**
      * @param string|IbanInterface $iban
      */
-    public function __construct($iban)
+    public function __construct($iban, ?ConfigurationInterface $configuration = null)
     {
         if (is_string($iban)) {
             $iban = new IBAN($iban);
@@ -71,7 +78,11 @@ final class QrPayment implements QrPaymentInterface
         if (!$iban instanceof IbanInterface) {
             throw new \InvalidArgumentException('The IBAN must be a string or ' . IbanInterface::class . ', ' . Utils::getType($iban) . ' given');
         }
+        if ($configuration === null) {
+            $configuration = new Configuration();
+        }
         $this->iban = $iban;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -318,17 +329,28 @@ final class QrPayment implements QrPaymentInterface
             }
         }
 
+        if ($this->getAmount()) {
+            $amount = $this->configuration->getAmountPrecision() !== null
+                ? number_format($this->getAmount(), $this->configuration->getAmountPrecision(), '.', '')
+                : $this->getAmount();
+        } else {
+            $amount = '';
+        }
+
         $result[] = 'BCD'; // the service tag
-        $result[] = '002'; // version
+        $result[] = $this->configuration->getVersion();
         $result[] = $this->getCharacterSet();
         $result[] = 'SCT'; // identification
         $result[] = $this->getBic();
         $result[] = $this->getBeneficiaryName();
         $result[] = $this->getIban()->asString();
-        $result[] = $this->getAmount() ? $this->getCurrency() . $this->getAmount() : '';
+        $result[] = $amount ? $this->getCurrency() . $amount : '';
         $result[] = $this->getPurpose();
         $result[] = $this->getRemittanceText();
         $result[] = $this->getInformation();
+        foreach ($this->configuration->getCustomData() as $customDatum) {
+            $result[] = $customDatum;
+        }
 
         $result = implode("\n", $result);
 
@@ -378,11 +400,19 @@ final class QrPayment implements QrPaymentInterface
 
     public function setDueDate(DateTimeInterface $dueDate)
     {
+        if ($handler = $this->configuration->getDueDateHandler()) {
+            $handler->setDueDate($dueDate);
+
+            return $this;
+        }
         throw new UnsupportedMethodException('The European standard does not support setting due date');
     }
 
     public function getDueDate(): DateTimeInterface
     {
+        if ($handler = $this->configuration->getDueDateHandler()) {
+            return $handler->getDueDate();
+        }
         throw new UnsupportedMethodException('The European standard does not support setting due date');
     }
 
