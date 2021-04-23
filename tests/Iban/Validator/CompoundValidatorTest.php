@@ -1,13 +1,15 @@
 <?php
 
-namespace rikudou\EuQrPayment\Tests;
+namespace rikudou\EuQrPayment\Tests\Iban\Validator;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\IBAN;
 use rikudou\EuQrPayment\Iban\Validator\CompoundValidator;
 use rikudou\EuQrPayment\Iban\Validator\CzechIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\GenericIbanValidator;
 use rikudou\EuQrPayment\Iban\Validator\ValidatorInterface;
+use RuntimeException;
 
 class CompoundValidatorTest extends TestCase
 {
@@ -24,7 +26,7 @@ class CompoundValidatorTest extends TestCase
 
     public function testConstructorWithNoArguments()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         new CompoundValidator();
     }
 
@@ -126,7 +128,7 @@ class CompoundValidatorTest extends TestCase
         return new class() implements ValidatorInterface {
             public function isValid(): bool
             {
-                throw new \RuntimeException();
+                throw new RuntimeException();
             }
         };
     }

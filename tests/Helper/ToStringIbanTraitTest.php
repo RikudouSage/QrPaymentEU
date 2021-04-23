@@ -1,6 +1,6 @@
 <?php
 
-namespace rikudou\EuQrPayment\Tests;
+namespace rikudou\EuQrPayment\Tests\Helper;
 
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Helper\ToStringIban;

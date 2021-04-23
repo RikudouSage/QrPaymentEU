@@ -1,6 +1,6 @@
 <?php
 
-namespace rikudou\EuQrPayment\Tests;
+namespace rikudou\EuQrPayment\Tests\Iban;
 
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\CzechIbanAdapter;

@@ -144,6 +144,7 @@ class QrPaymentTest extends TestCase
         });
 
         $payment->setBeneficiaryName('random');
+
         try {
             $payment->getQrString();
         } catch (Throwable $exception) {
@@ -322,6 +323,7 @@ class QrPaymentTest extends TestCase
         $payment = $this->getDefaultPayment();
 
         $this->unregisterAutoloader();
+
         try {
             $payment
                 ->setBeneficiaryName('My company')
@@ -384,7 +386,7 @@ class QrPaymentTest extends TestCase
     {
         $this->expectException(InvalidOptionException::class);
         $this->getDefaultPayment()->setOptions([
-            'iban' => 'CZ5530300000001325090010'
+            'iban' => 'CZ5530300000001325090010',
         ]);
     }
 
@@ -392,7 +394,7 @@ class QrPaymentTest extends TestCase
     {
         $this->expectException(InvalidOptionException::class);
         $this->getDefaultPayment()->setOptions([
-            'someRandomOption' => 'someValue'
+            'someRandomOption' => 'someValue',
         ]);
     }
 

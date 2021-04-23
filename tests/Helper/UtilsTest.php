@@ -1,6 +1,6 @@
 <?php
 
-namespace rikudou\EuQrPayment\Tests;
+namespace rikudou\EuQrPayment\Tests\Helper;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;

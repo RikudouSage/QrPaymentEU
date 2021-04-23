@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 15.12.18
- * Time: 2:11.
- */
 
-namespace rikudou\EuQrPayment\Tests;
+namespace rikudou\EuQrPayment\Tests\Iban;
 
 use PHPUnit\Framework\TestCase;
 use rikudou\EuQrPayment\Iban\IBAN;
