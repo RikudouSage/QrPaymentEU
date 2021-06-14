@@ -51,7 +51,7 @@ class AbstractConfigurationTest extends TestCase
     {
         // test default
         $instance = $this->getInstance();
-        self::assertCount(11, $this->getLines($instance));
+        self::assertCount(12, $this->getLines($instance));
 
         $config = new class extends AbstractConfiguration {
             public function getCustomData(): iterable
@@ -61,9 +61,9 @@ class AbstractConfigurationTest extends TestCase
             }
         };
         $instance = $this->getInstance($config);
-        self::assertCount(13, $this->getLines($instance));
-        self::assertEquals('A', $this->getLine($instance, 11));
-        self::assertEquals('B', $this->getLine($instance, 12));
+        self::assertCount(14, $this->getLines($instance));
+        self::assertEquals('A', $this->getLine($instance, 12));
+        self::assertEquals('B', $this->getLine($instance, 13));
     }
 
     public function testGetAmountPrecision()
@@ -164,7 +164,7 @@ class AbstractConfigurationTest extends TestCase
         $instance = $this->getInstance($config);
         $instance->setDueDate(new DateTimeImmutable('2025-01-01 12:00:00'));
         self::assertEquals('2025-01-01 12:00:00', $instance->getDueDate()->format('Y-m-d H:i:s'));
-        self::assertEquals('20250101', $this->getLine($instance, 11));
+        self::assertEquals('20250101', $this->getLine($instance, 12));
     }
 
     private function getInstance(AbstractConfiguration $configuration = null): QrPayment

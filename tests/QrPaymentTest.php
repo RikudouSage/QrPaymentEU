@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 15.12.18
- * Time: 1:11.
- */
 
 namespace rikudou\EuQrPayment\Tests;
 
@@ -91,13 +85,34 @@ class QrPaymentTest extends TestCase
             ->setRemittanceText('Invoice ID: 1')
             ->setCharacterSet(CharacterSet::UTF_8);
 
-        $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\nInvoice ID: 1\nRandom comment", $payment->getQrString());
+        $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\n\nInvoice ID: 1\nRandom comment", $payment->getQrString());
 
         $payment = $this->getDefaultPayment();
-        $payment// no unnecessary parameters
+        $payment
+            ->setPurpose(Purpose::ACCOUNT_MANAGEMENT)
+            ->setBeneficiaryName('My Company')
+            ->setSwift('AIRACZPP')
+            ->setAmount(10)
+            ->setCurrency('EUR')
+            ->setComment('Random comment')
+            ->setCreditorReference('RF0000000')
+            ->setCharacterSet(CharacterSet::UTF_8);
+
+        $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\nRF0000000\n\nRandom comment", $payment->getQrString());
+
+        $payment = $this->getDefaultPayment();
+        $payment // no unnecessary parameters
         ->setBeneficiaryName('My Company');
 
-        $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\n\n", $payment->getQrString());
+        $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\n\n\n", $payment->getQrString());
+
+        $this->expectException(LogicException::class);
+        $payment = $this->getDefaultPayment();
+        $payment
+            ->setBeneficiaryName('My Company')
+            ->setRemittanceText('test')
+            ->setCreditorReference('RF123');
+        $payment->getQrString();
     }
 
     public function testGetQrStringNoBeneficiary()
@@ -366,6 +381,7 @@ class QrPaymentTest extends TestCase
             'amount' => 150.34,
             'purpose' => Purpose::ACCOUNT_OVERDRAFT_REPAYMENT,
             'remittanceText' => 'Some string',
+            'creditorReference' => 'Some creditor',
             'information' => 'Another string',
             'currency' => 'USD',
         ];
@@ -378,6 +394,7 @@ class QrPaymentTest extends TestCase
         self::assertEquals($options['amount'], $instance->getAmount());
         self::assertEquals($options['purpose'], $instance->getPurpose());
         self::assertEquals($options['remittanceText'], $instance->getRemittanceText());
+        self::assertEquals($options['creditorReference'], $instance->getCreditorReference());
         self::assertEquals($options['information'], $instance->getInformation());
         self::assertEquals($options['currency'], $instance->getCurrency());
     }
@@ -396,6 +413,21 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setOptions([
             'someRandomOption' => 'someValue',
         ]);
+    }
+
+    public function testSetCreditorReference()
+    {
+        $strings = [
+            $this->getRandomString(10),
+            $this->getRandomString(35),
+            $this->getRandomString(36),
+        ];
+
+        $this->assertEquals($strings[0], $this->getDefaultPayment()->setCreditorReference($strings[0])->getCreditorReference());
+        $this->assertEquals($strings[1], $this->getDefaultPayment()->setCreditorReference($strings[1])->getCreditorReference());
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->getDefaultPayment()->setCreditorReference($strings[2]);
     }
 
     private function getDefaultPayment(): QrPayment

@@ -9,8 +9,6 @@ Currently used in Germany, Austria, Netherlands, Finland and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ) or [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
 
-> Using Symfony? See the [QR Payment Bundle](https://github.com/RikudouSage/QrPaymentBundle).
-
 ## Installation
 
 Via composer: `composer require rikudou/euqrpayment`
@@ -77,6 +75,7 @@ $payment
     ->setAmount(100)
     ->setPurpose(Purpose::ACCOUNT_MANAGEMENT)
     ->setRemittanceText("Invoice ID: XXX")
+    ->setCreditorReference('RF123456') // setting both creditor reference and remittance text will actually result in exception
     ->setInformation("This is some note")
     ->setCurrency("EUR");
 
@@ -100,12 +99,14 @@ than 70 characters
 - `setPurpose()` - `InvalidArgumentException` - if the purpose is longer than 4 characters
 - `setRemittanceText()` - `InvalidArgumentException` - if the remittance text is longer
 than 140 characters
+- `setCreditorReference()` - `InvalidArgumentException` - if the creditor reference is longer
+  than 35 characters
 - `setInformation()` and `setComment()` - `InvalidArgumentException` - if the comment is longer
 than 70 characters
 - `setCurrency()` - `InvalidArgumentException` - if the currency is not exactly 3 characters
 long
 - `getQrString()` - `LogicException` - if the beneficiary name is missing or if the
-resulting string is bigger than 331 bytes
+resulting string is bigger than 331 bytes or if both remittance text and creditor reference are set
 - `getQrImage()` - `LogicException` - if the `endroid/qr-code` library is not installed
 
 ## List of public methods
@@ -312,6 +313,27 @@ $payment = new QrPayment("CZ5530300000001325090010");
 $payment->getRemittanceText();
 ```
 
+### getCreditorReference()
+
+Returns the structured creditor reference. Defaults to empty string.
+
+**Returns**
+
+`string`
+
+**Example**
+
+```php
+<?php
+
+use rikudou\EuQrPayment\QrPayment;
+
+$payment = new QrPayment("CZ5530300000001325090010");
+$payment->setCreditorReference('RF123456');
+// do other stuff
+echo $payment->getCreditorReference();
+```
+
 ### getInformation() or getComment()
 
 Returns the information (comment) of the payment.
@@ -479,6 +501,8 @@ $payment->setPurpose(Purpose::TRUST_FUND);
 
 The payment reference, up to 140 characters.
 
+> Note: You cannot set both remittance text and creditor reference
+
 **Params**
 
 - `string $remittanceText` - the remittance text
@@ -496,6 +520,31 @@ use rikudou\EuQrPayment\QrPayment;
 
 $payment = new QrPayment("CZ5530300000001325090010");
 $payment->setRemittanceText("Invoice ID: ###");
+```
+
+### setCreditorReference()
+
+The structured creditor reference (ISO 11649), up to 35 characters.
+
+> Note: You cannot set both remittance text and creditor reference
+
+**Params**
+
+- `string $creditorReference` - the remittance text
+
+**Returns**
+
+`$this`
+
+**Example**
+
+```php
+<?php
+
+use rikudou\EuQrPayment\QrPayment;
+
+$payment = new QrPayment("CZ5530300000001325090010");
+$payment->setCreditorReference("RF123456");
 ```
 
 ### setInformation() or setComment()
@@ -588,6 +637,7 @@ My Cool Company
 CZ5530300000001325090010
 EUR100
 ACCT
+
 Invoice ID: XXX
 This is some note"
  */

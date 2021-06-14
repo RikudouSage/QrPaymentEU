@@ -50,6 +50,11 @@ final class QrPayment implements QrPaymentInterface
     /**
      * @var string
      */
+    private $creditorReference = '';
+
+    /**
+     * @var string
+     */
     private $remittanceText = '';
 
     /**
@@ -236,20 +241,20 @@ final class QrPayment implements QrPaymentInterface
     /**
      * @return string
      */
-    public function getRemittanceText(): string
+    public function getCreditorReference(): string
     {
-        return $this->remittanceText;
+        return $this->creditorReference;
     }
 
     /**
-     * @param string $remittanceText
+     * @param string $creditorReference
      *
      * @return QrPayment
      */
-    public function setRemittanceText(string $remittanceText): QrPayment
+    public function setCreditorReference(string $creditorReference): QrPayment
     {
-        $this->checkLength($remittanceText, 140);
-        $this->remittanceText = $remittanceText;
+        $this->checkLength($creditorReference, 35);
+        $this->creditorReference = $creditorReference;
 
         return $this;
     }
@@ -320,7 +325,7 @@ final class QrPayment implements QrPaymentInterface
 
     public function getQrString(): string
     {
-        $this->checkRequiredParameters();
+        $this->checkParameterValidity();
 
         $result = [];
         if ($validator = $this->getIban()->getValidator()) {
@@ -346,6 +351,7 @@ final class QrPayment implements QrPaymentInterface
         $result[] = $this->getIban()->asString();
         $result[] = $amount ? $this->getCurrency() . $amount : '';
         $result[] = $this->getPurpose();
+        $result[] = $this->getCreditorReference();
         $result[] = $this->getRemittanceText();
         $result[] = $this->getInformation();
         foreach ($this->configuration->getCustomData() as $customDatum) {
@@ -416,6 +422,19 @@ final class QrPayment implements QrPaymentInterface
         throw new UnsupportedMethodException('The European standard does not support setting due date');
     }
 
+    public function getRemittanceText(): string
+    {
+        return $this->remittanceText;
+    }
+
+    public function setRemittanceText(string $remittanceText): QrPayment
+    {
+        $this->checkLength($remittanceText, 140);
+        $this->remittanceText = $remittanceText;
+
+        return $this;
+    }
+
     /**
      * @param string $string
      * @param int    $max
@@ -429,10 +448,13 @@ final class QrPayment implements QrPaymentInterface
         }
     }
 
-    private function checkRequiredParameters(): void
+    private function checkParameterValidity(): void
     {
         if (!$this->getBeneficiaryName()) {
             throw new \LogicException('The beneficiary name is a mandatory parameter');
+        }
+        if ($this->getCreditorReference() && $this->getRemittanceText()) {
+            throw new \LogicException('Only creditor reference or remittance text or neither can be set but not both');
         }
     }
 }
