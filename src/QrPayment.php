@@ -427,7 +427,7 @@ final class QrPayment implements QrPaymentInterface
         return $this->remittanceText;
     }
 
-    public function setRemittanceText(string $remittanceText): self
+    public function setRemittanceText(string $remittanceText): QrPayment
     {
         $this->checkLength($remittanceText, 140);
         $this->remittanceText = $remittanceText;
