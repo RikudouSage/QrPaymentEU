@@ -109,6 +109,7 @@ class QrPaymentTest extends TestCase
         $this->expectException(LogicException::class);
         $payment = $this->getDefaultPayment();
         $payment
+            ->setBeneficiaryName('My Company')
             ->setRemittanceText('test')
             ->setCreditorReference('RF123');
         $payment->getQrString();
