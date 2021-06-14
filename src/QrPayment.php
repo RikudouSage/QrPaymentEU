@@ -50,6 +50,11 @@ final class QrPayment implements QrPaymentInterface
     /**
      * @var string
      */
+    private $creditorReference = '';
+
+    /**
+     * @var string
+     */
     private $remittanceText = '';
 
     /**
@@ -236,6 +241,30 @@ final class QrPayment implements QrPaymentInterface
     /**
      * @return string
      */
+    public function getCreditorReference(): string
+    {
+        return $this->creditorReference;
+    }
+
+    /**
+     * @param string $creditorReference
+     *
+     * @return QrPayment
+     */
+    public function setCreditorReference(string $creditorReference): QrPayment
+    {
+        $this->checkLength($creditorReference, 35);
+        if (!empty($this->remittanceText)) {
+            throw new \InvalidArgumentException('Creditor reference must be empty if remittance text is set');
+        }
+        $this->creditorReference = $creditorReference;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getRemittanceText(): string
     {
         return $this->remittanceText;
@@ -249,6 +278,9 @@ final class QrPayment implements QrPaymentInterface
     public function setRemittanceText(string $remittanceText): QrPayment
     {
         $this->checkLength($remittanceText, 140);
+        if (!empty($this->creditorReference)) {
+            throw new \InvalidArgumentException('Remittance text must be empty if creditor reference is set');
+        }
         $this->remittanceText = $remittanceText;
 
         return $this;
@@ -346,6 +378,7 @@ final class QrPayment implements QrPaymentInterface
         $result[] = $this->getIban()->asString();
         $result[] = $amount ? $this->getCurrency() . $amount : '';
         $result[] = $this->getPurpose();
+        $result[] = $this->getCreditorReference();
         $result[] = $this->getRemittanceText();
         $result[] = $this->getInformation();
         foreach ($this->configuration->getCustomData() as $customDatum) {

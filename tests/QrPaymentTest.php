@@ -91,13 +91,20 @@ class QrPaymentTest extends TestCase
             ->setRemittanceText('Invoice ID: 1')
             ->setCharacterSet(CharacterSet::UTF_8);
 
-        $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\nInvoice ID: 1\nRandom comment", $payment->getQrString());
+        $this->assertEquals("BCD\n002\n1\nSCT\nAIRACZPP\nMy Company\nCZ5530300000001325090010\nEUR10\nACCT\n\nInvoice ID: 1\nRandom comment", $payment->getQrString());
 
         $payment = $this->getDefaultPayment();
         $payment// no unnecessary parameters
         ->setBeneficiaryName('My Company');
 
-        $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\n\n", $payment->getQrString());
+        $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\n\n\n", $payment->getQrString());
+
+        $payment = $this->getDefaultPayment();
+        $payment
+            ->setCreditorReference("Reference")
+            ->setBeneficiaryName('My Company');
+
+        $this->assertEquals("BCD\n002\n1\nSCT\n\nMy Company\nCZ5530300000001325090010\n\n\nReference\n\n", $payment->getQrString());
     }
 
     public function testGetQrStringNoBeneficiary()
@@ -165,6 +172,41 @@ class QrPaymentTest extends TestCase
             ->setComment($this->getRandomString(70));
 
         $payment->getQrString();
+    }
+
+    public function testConflictingCreditorReferenceWithRemittanceText()
+    {
+        $payment = $this->getDefaultPayment();
+        $payment->setCreditorReference("abc");
+        $this->assertEquals("abc", $payment->getCreditorReference());
+
+        $this->expectException(InvalidArgumentException::class);
+        $payment->setRemittanceText("test");
+    }
+
+    public function testConflictingRemittanceTextWithCreditorReference()
+    {
+        $payment = $this->getDefaultPayment();
+        $payment->setRemittanceText("abc");
+        $this->assertEquals("abc", $payment->getRemittanceText());
+
+        $this->expectException(InvalidArgumentException::class);
+        $payment->setCreditorReference("test");
+    }
+
+    public function testSetCreditorReference()
+    {
+        $strings = [
+            $this->getRandomString(10),
+            $this->getRandomString(35),
+            $this->getRandomString(36),
+        ];
+
+        $this->assertEquals($strings[0], $this->getDefaultPayment()->setCreditorReference($strings[0])->getCreditorReference());
+        $this->assertEquals($strings[1], $this->getDefaultPayment()->setCreditorReference($strings[1])->getCreditorReference());
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->getDefaultPayment()->setCreditorReference($strings[2]);
     }
 
     public function testSetInformation()
