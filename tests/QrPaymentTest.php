@@ -332,23 +332,6 @@ class QrPaymentTest extends TestCase
         $this->getDefaultPayment()->setCurrency('EURO');
     }
 
-    public function testGetQrImageFailure()
-    {
-        $this->expectException(LogicException::class);
-        $payment = $this->getDefaultPayment();
-
-        $this->unregisterAutoloader();
-
-        try {
-            $payment
-                ->setBeneficiaryName('My company')
-                ->getQrImage();
-        } catch (Throwable $exception) {
-            $this->reregisterAutoloader();
-            throw $exception;
-        }
-    }
-
     public function testGetQrImage()
     {
         $this->reregisterAutoloader();
