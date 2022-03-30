@@ -8,8 +8,8 @@ Library to generate QR payment codes for European Union (EPC standard, also call
 Currently used in Germany, Austria, Netherlands, Finland and Belgium.
 
 > See also QR code payment generator for [Czech](https://github.com/RikudouSage/QrPaymentCZ),
-> [Slovak](https://github.com/RikudouSage/QrPaymentSK) accounts
-> or [Hungarian](https://github.com/hubipe/QrPaymentHU)
+> [Slovak](https://github.com/RikudouSage/QrPaymentSK)
+> or [Hungarian](https://github.com/hubipe/QrPaymentHU) accounts
 
 ## Installation
 
